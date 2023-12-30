@@ -27,6 +27,8 @@
         
         <!-- Add your entity mappings here -->
         <mapping class="backend.models.User"/>
+        <mapping class="backend.models.Pet"/>
+        <mapping class="backend.models.Items"/>
         
     </session-factory>
 </hibernate-configuration>

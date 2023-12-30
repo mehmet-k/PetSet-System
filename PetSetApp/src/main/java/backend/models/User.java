@@ -1,6 +1,8 @@
 package backend.models;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,9 @@ public class User {
 	
 	@Column(name = "status")
 	private int status=1;
+	
+	@OneToMany(mappedBy = "owner")
+    private ArrayList<Pet> pets = new ArrayList<>();
 	
 	public User() {
 		// TODO Auto-generated constructor stub
