@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5433/PETSHOP</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">mehmet11</property>
+
+        <!-- JDBC connection pool settings (optional) -->
+        <property name="connection.pool_size">5</property>
+
+        <!-- Specify dialect -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Specify the JDBC batch size (optional) -->
+        <property name="hibernate.jdbc.batch_size">25</property>
+
+        <!-- Specify the show SQL property for debugging (optional) -->
+        <property name="show_sql">true</property>
+
+        <!-- Mapping files or packages -->
+        
+        <!-- Add your entity mappings here -->
+        <mapping class="backend.models.User"/>
+        
+    </session-factory>
+</hibernate-configuration>
