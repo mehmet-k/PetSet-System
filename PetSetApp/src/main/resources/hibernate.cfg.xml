@@ -29,6 +29,8 @@
         <mapping class="backend.models.User"/>
         <mapping class="backend.models.Pet"/>
         <mapping class="backend.models.Items"/>
+        <mapping class="backend.models.ItemType"/>
+        <mapping class="backend.models.PetType"/>
         
     </session-factory>
 </hibernate-configuration>

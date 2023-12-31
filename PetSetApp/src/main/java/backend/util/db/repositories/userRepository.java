@@ -12,12 +12,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 public class userRepository {
-	private User user;
-	private EntityManager entityManager;
-	
-	public userRepository(User user) {
+	private static EntityManager entityManager;
+
+	public userRepository() {
 		super();
-		this.user = user;
 	}
 
 	public void insertUser (User user) {
@@ -38,28 +36,47 @@ public class userRepository {
 		}
 	}
 	
-	public void hardDeleteUser() {
+	public User getUserByUserID(int id){
+		
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+			User user = session.get(User.class, id);
+			tx.commit();
+			return user;
+		}
+	}
+	
+	public void hardDeleteUser(User user) {
 		
 	}
 	
 	public List<Pet> getUserPets(User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			
-			String nativeSQL = "SELECT p.*"
-					+ "FROM USER_HAS_THIS_PET up,USERS u, PET"
-					+ "WHERE up.userid = u.id AND p.id = petid";
+			String nativeSQL = "SELECT DISTINCT p " +
+                    "FROM USER_HAS_THIS_PET up, USERS u, Pet p " +
+                    "WHERE up.userid = :userID AND p.id = up.petid AND up.status = 1";
+
 			
-			Query query = entityManager.createNativeQuery(nativeSQL,Pet.class);
-			query.setParameter("userID", user.getId());
-			
-			List<Pet> pets = query.getResultList();
+			List<Pet> pets = session.createQuery(nativeSQL,Pet.class)
+								.setParameter("userID", user.getId())
+								.getResultList();
+
 			return pets;
 		}
 	}
 	
 	public void addPetToUser(User user,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
-		
+			String nativeSQLString = "INSERT INTO USER_HAS_THIS_PET(userid,petid,adoptiondate)"
+								+ "VALUES(:userid,:petid,:adoptiondate)";
+			
+			Query query = entityManager.createNativeQuery(nativeSQLString);
+			query.setParameter("userid", user.getId());
+			query.setParameter("petid", pet.getId());
+			//query.setParameter("adoptiondate", date);
+			
+			
 		}
 	}
 	
