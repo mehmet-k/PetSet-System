@@ -36,7 +36,7 @@ public class Pet {
 	private String petName;
 	
 	@Column(name = "isadopted")
-	private int isAdopted;
+	private int isAdopted=0;
 
 	
 	public Pet(){

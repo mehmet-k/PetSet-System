@@ -12,7 +12,7 @@ public class petRepository {
 		
 	}
 	
-	public void insertPet (Pet pet) {
+	public static void insertPet (Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
             session.persist(pet);
@@ -22,7 +22,7 @@ public class petRepository {
 	}
 	
 
-	public void removePet(Pet pet) {
+	public static void removePet(Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 			session.createQuery("UPDATE USER SET status = 0", Pet.class);
@@ -32,7 +32,7 @@ public class petRepository {
 	}
 	
 	
-	public void hardDeletePet() {
+	public static void hardDeletePet() {
 			
 	}
 	

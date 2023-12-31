@@ -9,8 +9,6 @@ import backend.models.ItemType;
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
-import backend.models.userHasThisPet;
-import jakarta.persistence.EntityManagerFactory;
 
 public class HibernateUtility {
 

@@ -18,7 +18,7 @@ public class userRepository {
 		super();
 	}
 
-	public void insertUser (User user) {
+	public static void insertUser (User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
             session.persist(user);
@@ -27,7 +27,7 @@ public class userRepository {
 		}
 	}
 	
-	public void removeUser(User user) {
+	public static void removeUser(User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 			session.createQuery("UPDATE USER SET status = 0", User.class);
@@ -36,7 +36,7 @@ public class userRepository {
 		}
 	}
 	
-	public User getUserByUserID(int id){
+	public static User getUserByUserID(int id){
 		
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
@@ -46,11 +46,11 @@ public class userRepository {
 		}
 	}
 	
-	public void hardDeleteUser(User user) {
+	public static void hardDeleteUser(User user) {
 		
 	}
 	
-	public List<Pet> getUserPets(User user) {
+	public static List<Pet> getUserPets(User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			
 			String nativeSQL = "SELECT DISTINCT p " +
@@ -66,7 +66,7 @@ public class userRepository {
 		}
 	}
 	
-	public void addPetToUser(User user,Pet pet) {
+	public static void addPetToUser(User user,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			String nativeSQLString = "INSERT INTO USER_HAS_THIS_PET(userid,petid,adoptiondate)"
 								+ "VALUES(:userid,:petid,:adoptiondate)";
