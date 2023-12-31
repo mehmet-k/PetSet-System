@@ -9,6 +9,7 @@ import backend.models.ItemType;
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
+import backend.models.userHasThisPet;
 
 public class HibernateUtility {
 
@@ -21,7 +22,8 @@ public class HibernateUtility {
             .addAnnotatedClass(Pet.class)
             .addAnnotatedClass(Item.class)
             .addAnnotatedClass(ItemType.class)
-            .addAnnotatedClass(PetType.class); // Add the User entity mapping
+            .addAnnotatedClass(PetType.class)
+            .addAnnotatedClass(userHasThisPet.class); // Add the User entity mapping
 
             return configuration.buildSessionFactory(
                     new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build()

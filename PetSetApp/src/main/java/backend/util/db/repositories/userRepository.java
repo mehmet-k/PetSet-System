@@ -54,7 +54,7 @@ public class userRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			
 			String nativeSQL = "SELECT DISTINCT p " +
-                    "FROM USER_HAS_THIS_PET up, USERS u, Pet p " +
+                    "FROM userHasThisPet up, USERS u, Pet p " +
                     "WHERE up.userid = :userID AND p.id = up.petid AND up.status = 1";
 
 			
