@@ -13,11 +13,13 @@ public class SignUpPage extends JFrame {
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JTextField addressField;
+    private JTextField passwordField;
+
 
     public SignUpPage() {
         setTitle("Sign Up Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
+        setSize(400, 300);
         setLocationRelativeTo(null);
 
         createSignUpPanel();
@@ -37,6 +39,13 @@ public class SignUpPage extends JFrame {
         lastNameField = new JTextField();
         JLabel addressLabel = new JLabel("Address:");
         addressField = new JTextField();
+        
+        JLabel PasswordLabel = new JLabel("Password:");
+        passwordField = new JTextField();
+        
+        
+        JLabel status = new JLabel("");
+        JLabel status1 = new JLabel("");
 
         JButton signUpButton = new JButton("Sign Up");
         JButton backButton = new JButton("Back");
@@ -51,11 +60,27 @@ public class SignUpPage extends JFrame {
                           usernameField.getText(),
                           firstNameField.getText(),
                           lastNameField.getText(),
-                          addressField.getText()
-                 );
-            	if(userRepository.isUserExists(usernameField.getText()) == null )
-            	 userRepository.insertUser(newUser);
-                
+                          addressField.getText(),
+                          passwordField.getText());
+            	 if (!usernameField.getText().isEmpty() &&
+            			    !firstNameField.getText().isEmpty() &&
+            			    !lastNameField.getText().isEmpty() &&
+            			    !addressField.getText().isEmpty()) {
+
+            			if(!userRepository.isUserExists(usernameField.getText())) {
+        		    		 status.setText("Signed up succesfully!");
+        		    		 userRepository.insertUser(newUser);
+            			}
+            			else {
+                    		status.setText("Username exist with another user ");
+            			}
+            			
+            	}
+            	 else {
+             		status.setText("Pleas fill all the blanks ");
+
+            	 }
+
             }
         });
 
@@ -77,6 +102,8 @@ public class SignUpPage extends JFrame {
         panel.add(lastNameField);
         panel.add(addressLabel);
         panel.add(addressField);
+        panel.add(status);
+        panel.add(status1);
         panel.add(signUpButton);
         panel.add(backButton);
 
