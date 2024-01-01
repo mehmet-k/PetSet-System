@@ -39,12 +39,14 @@ public class User {
 	}
 	
 	
-	public User(String userName, String firstName, String surname, String address) {
+	public User(String userName, String firstName, String surname, String address, String password) {
 		super();
 		this.userName = userName;
 		this.firstName = firstName;
 		this.surname = surname;
 		this.address = address;
+		this.password = password;
+
 	}
 
 	public int getId() {
