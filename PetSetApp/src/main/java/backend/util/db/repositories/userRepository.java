@@ -28,7 +28,7 @@ public class userRepository {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
 			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
-							.setParameter("userName", userName)
+							.setParameter("username", username)
 							.getSingleResult();
 			return user;
 		} 
