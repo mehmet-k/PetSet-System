@@ -1,3 +1,4 @@
+
 package frontend;
 import javax.swing.*;
 
@@ -15,11 +16,10 @@ public class SignUpPage extends JFrame {
     private JTextField addressField;
     private JTextField passwordField;
 
-
     public SignUpPage() {
         setTitle("Sign Up Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(200, 400);
+        setSize(400, 300);
         setLocationRelativeTo(null);
 
         createSignUpPanel();
@@ -29,86 +29,109 @@ public class SignUpPage extends JFrame {
 
     private void createSignUpPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2));
+        panel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some padding
 
         JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField();
+        panel.add(usernameLabel, gbc);
+        gbc.gridx++;
+        usernameField = new JTextField(15);  // Set the preferred width of the text field
+        panel.add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel firstNameLabel = new JLabel("First Name:");
-        firstNameField = new JTextField();
+        panel.add(firstNameLabel, gbc);
+        gbc.gridx++;
+        firstNameField = new JTextField(15);
+        panel.add(firstNameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel lastNameLabel = new JLabel("Last Name:");
-        lastNameField = new JTextField();
+        panel.add(lastNameLabel, gbc);
+        gbc.gridx++;
+        lastNameField = new JTextField(15);
+        panel.add(lastNameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel addressLabel = new JLabel("Address:");
-        addressField = new JTextField();
-        
-        JLabel PasswordLabel = new JLabel("Password:");
-        passwordField = new JTextField();
-        
-        
+        panel.add(addressLabel, gbc);
+        gbc.gridx++;
+        addressField = new JTextField(15);
+        panel.add(addressField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel passwordLabel = new JLabel("Password:");
+        panel.add(passwordLabel, gbc);
+        gbc.gridx++;
+        passwordField = new JTextField(15);
+        panel.add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel status = new JLabel("");
-        JLabel status1 = new JLabel("");
+        panel.add(status, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JButton signUpButton = new JButton("Sign Up");
-        JButton backButton = new JButton("Back");
-
-        // Add action listener to the Sign Up button
         signUpButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform sign-up logic here
-                // For simplicity, we are just displaying the entered information
-            	 User newUser = new User(
-                          usernameField.getText(),
-                          firstNameField.getText(),
-                          lastNameField.getText(),
-                          addressField.getText(),
-                          passwordField.getText());
-            	 if (!usernameField.getText().isEmpty() &&
-            			    !firstNameField.getText().isEmpty() &&
-            			    !lastNameField.getText().isEmpty() &&
-            			    !addressField.getText().isEmpty()) {
+            // Add action listener to the Sign Up button        
+                public void actionPerformed(ActionEvent e) {
+                    // Perform sign-up logic here
+                    // For simplicity, we are just displaying the entered information
+                	 User newUser = new User(
+                              usernameField.getText(),
+                              firstNameField.getText(),
+                              lastNameField.getText(),
+                              addressField.getText(),
+                              passwordField.getText());
+                	 if (!usernameField.getText().isEmpty() &&
+                			    !firstNameField.getText().isEmpty() &&
+                			    !lastNameField.getText().isEmpty() &&
+                			    !addressField.getText().isEmpty()) {
 
-            			if(!userRepository.isUserExists(usernameField.getText())) {
-        		    		 status.setText("Signed up succesfully!");
-        		    		 userRepository.insertUser(newUser);
-            			}
-            			else {
-                    		status.setText("Username exist with another user ");
-            			}
-            			
-            	}
-            	 else {
-             		status.setText("Pleas fill all the blanks ");
+                			if(!userRepository.isUserExists(usernameField.getText())) {
+            		    		 status.setText("Signed up succesfully!");
+            		    		 userRepository.insertUser(newUser);
+                			}
+                			else {
+                        		status.setText("Username exist with another user ");
+                			}
+                			
+                	}
+                	 else {
+                 		status.setText("Pleas fill all the blanks ");
 
-            	 }
+                	 }
 
-            }
-        });
+                }
+            });
+        panel.add(signUpButton, gbc);
 
-        // Add action listener to the Back button
+        gbc.gridx++;
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Close the current sign-up page and go back to the login page
                 dispose();
                 new SimpleLoginPage();
             }
         });
-
-        panel.add(usernameLabel);
-        panel.add(usernameField);
-        panel.add(firstNameLabel);
-        panel.add(firstNameField);
-        panel.add(lastNameLabel);
-        panel.add(lastNameField);
-        panel.add(addressLabel);
-        panel.add(addressField);
-        panel.add(PasswordLabel);
-        panel.add(passwordField);
-        panel.add(status);
-        panel.add(status1);
-        panel.add(signUpButton);
-        panel.add(backButton);
+        panel.add(backButton, gbc);
 
         add(panel);
     }
 }
+
+
+
