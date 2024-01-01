@@ -1,5 +1,7 @@
 package frontend;
 
+import backend.util.db.repositories.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,33 +25,60 @@ public class SimpleLoginPage extends JFrame {
 
     private void createLoginPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
+        panel.setLayout(new GridBagLayout());
 
-        JLabel userIdLabel = new JLabel("User ID:");
-        userIdField = new JTextField();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5); // Add some padding
+
+        JLabel userNameLabel = new JLabel("User ID:");
+        panel.add(userNameLabel, gbc);
+        gbc.gridx++;
+        userIdField = new JTextField(15);
+        panel.add(userIdField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField();
+        panel.add(passwordLabel, gbc);
+        gbc.gridx++;
+        passwordField = new JPasswordField(15);
+        panel.add(passwordField, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel status = new JLabel("");
+        panel.add(status, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
         JButton loginButton = new JButton("Log In");
-        JButton signUpButton = new JButton("Sign Up");
-
-        // Add action listener to the Log In button
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userId = userIdField.getText();
+                String userName = userIdField.getText();
                 char[] password = passwordField.getPassword();
 
                 // Perform authentication or other relevant actions here
                 // For simplicity, we are just displaying the entered credentials
-                System.out.println("User ID: " + userId);
+                System.out.println("User ID: " + userName);
                 System.out.println("Password: " + new String(password));
-                
-                // USER CONTROL 
+
+                if (userRepository.areCredientialsCorrect(userName, new String(password))) {
+                    dispose(); // Close the current login page
+                } else {
+                    System.out.println("false");
+                    status.setText("Wrong Credentials!");
+                }
+                // USER CONTROL
             }
         });
+        panel.add(loginButton, gbc);
 
-        // Add action listener to the Sign Up button
+        gbc.gridx++;
+        JButton signUpButton = new JButton("Sign Up");
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,13 +87,7 @@ public class SimpleLoginPage extends JFrame {
                 new SignUpPage();
             }
         });
-
-        panel.add(userIdLabel);
-        panel.add(userIdField);
-        panel.add(passwordLabel);
-        panel.add(passwordField);
-        panel.add(loginButton);
-        panel.add(signUpButton);
+        panel.add(signUpButton, gbc);
 
         add(panel);
     }

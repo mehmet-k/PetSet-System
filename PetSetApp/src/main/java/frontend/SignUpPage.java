@@ -98,7 +98,8 @@ public class SignUpPage extends JFrame {
                 	 if (!usernameField.getText().isEmpty() &&
                 			    !firstNameField.getText().isEmpty() &&
                 			    !lastNameField.getText().isEmpty() &&
-                			    !addressField.getText().isEmpty()) {
+                			    !addressField.getText().isEmpty() &&
+                			    !passwordField.getText().isEmpty()) {
 
                 			if(!userRepository.isUserExists(usernameField.getText())) {
             		    		 status.setText("Signed up succesfully!");
