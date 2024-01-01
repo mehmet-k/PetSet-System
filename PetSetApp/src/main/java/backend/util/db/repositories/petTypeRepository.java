@@ -1,28 +1,63 @@
 package backend.util.db.repositories;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import backend.models.Items;
 import backend.models.Pet;
+import backend.models.PetType;
+import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
+import jakarta.persistence.NoResultException;
 
 public class petTypeRepository {
 	
-	public void insertPet (Pet pet) {
+	public static boolean isPetTypeExists(String pettype) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.petType = :pettype";
+			PetType petType =	(PetType)session.createQuery(nativeSQL,PetType.class)
+						.setParameter("pettype", pettype)
+						.getSingleResult();
+		    return true;
+		} 
+		catch (NoResultException e) {
+		    // Handle case where no result is found
+		    return false;
+		} 
+	}
+	
+	public static void insertPetType (PetType petType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-            session.persist(pet);
+            session.persist(petType);
             tx.commit();
             session.close();
 		}
 	}
 	
-	public void removeUser(Pet pet) {
+	public static void removePetType(PetType petType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE USER SET status = 0", Pet.class);
+			session.createQuery("UPDATE PetType SET status = 0 WHERE id =:petTypeID", PetType.class)
+								.setParameter("petTypeID", petType.getId());
 			tx.commit();
 			session.close();
+		}
+	}
+	
+	public static List<PetType> getAllPetTypes(){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT pt FROM PetTypes pt WHERE pt.status = 1";
+			
+	        List<PetType> petTypes =(List<PetType>)session.createQuery(nativeSQL,PetType.class)
+			                .getResultList();
+
+	        tx.commit();
+	        return petTypes;
 		}
 	}
 	

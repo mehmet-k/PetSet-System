@@ -3,21 +3,31 @@ package backend.util.db.repositories;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.sqm.mutation.internal.temptable.PersistentTableInsertStrategy;
-
+import backend.models.Items;
 import backend.models.Pet;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+import jakarta.persistence.NoResultException;
 
 public class userRepository {
-	private static EntityManager entityManager;
 
-	public userRepository() {
-		super();
+	
+	public static boolean isUserExists(String usermame) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
+			User user =	(User)session.createQuery(nativeSQL,User.class)
+						.setParameter("username", usermame)
+						.getSingleResult();
+		    return true;
+		} 
+		catch (NoResultException e) {
+		    // Handle case where no result is found
+		    return false;
+		} 
 	}
-
+	
+	
+	
 	public static void insertUser (User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
@@ -30,7 +40,8 @@ public class userRepository {
 	public static void removeUser(User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE USER SET status = 0", User.class);
+			session.createQuery("UPDATE USER SET status = 0 WHERE id=:userID", User.class)
+								.setParameter("userID", user.getId());
 			tx.commit();
 			session.close();
 		}
@@ -49,36 +60,102 @@ public class userRepository {
 	public static void hardDeleteUser(User user) {
 		
 	}
-	
-	public static List<Pet> getUserPets(User user) {
-		try(Session session = HibernateUtility.getSessionFactory().openSession()){
-			
-			String nativeSQL = "SELECT DISTINCT p " +
-                    "FROM userHasThisPet up, USERS u, Pet p " +
-                    "WHERE up.userid = :userID AND p.id = up.petid AND up.status = 1";
-
-			
-			List<Pet> pets = session.createQuery(nativeSQL,Pet.class)
-								.setParameter("userID", user.getId())
-								.getResultList();
-
-			return pets;
-		}
-	}
-	
+		
 	public static void addPetToUser(User user,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
-			String nativeSQLString = "INSERT INTO USER_HAS_THIS_PET(userid,petid,adoptiondate)"
-								+ "VALUES(:userid,:petid,:adoptiondate)";
-			
-			Query query = entityManager.createNativeQuery(nativeSQLString);
-			query.setParameter("userid", user.getId());
-			query.setParameter("petid", pet.getId());
-			//query.setParameter("adoptiondate", date);
-			
+			Transaction tx = session.beginTransaction();
+	        
+	        String nativeSQL = "SELECT insert_into_user_has_this_pet(:userID,:petID)";
+	        session.createQuery(nativeSQL)
+	                .setParameter("userID", user.getId())
+	                .setParameter("petID", pet.getId())
+	                .uniqueResult();
+
+	        tx.commit();
+			session.close();
+		}
+	}
+	
+	public static List<Pet> getUserPets(User user){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p " +
+	                "FROM User u,userHasThisPet up, Pet p " +
+	                "WHERE u.id = up.userID AND u.id = :userID AND p.id = up.petID AND up.status = 1";
+	        
+	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
+			                .setParameter("userID", user.getId())
+			                .getResultList();
+
+	        tx.commit();
+	        return pets;
+		}
+	}
+	
+	public static void addItemToUser(User user,Items item) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+	        String nativeSQL = "SELECT insert_into_user_purchases(:userID,:itemID)";
+	        session.createQuery(nativeSQL)
+	                .setParameter("userID", user.getId())
+	                .setParameter("itemID", item.getId());
+
+	        tx.commit();
+	        session.close();
 			
 		}
 	}
+	
+	public static List<Items> getUserItems(User user){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p " +
+	                "FROM User u,userPurchase up, Items i " +
+	                "WHERE u.id = up.userID AND u.id = :userID AND i.id = up.itemID AND up.status = 1";
+	        
+	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
+			                .setParameter("userID", user.getId())
+			                .getResultList();
+
+	        tx.commit();
+	        return items;
+		}
+	}
+	
+	public static List<User> getAllUsers(){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT u FROM Users u WHERE u.status = 1";
+			
+	        List<User> users =(List<User>)session.createQuery(nativeSQL,User.class)
+			                .getResultList();
+
+	        tx.commit();
+	        return users;
+		}
+	}
+	
+	public static void removePetFromUser(User user) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "UPDATE userHasThisPet SET status=0 WHERE userID=:userid";
+	        Pet pet =	session.createQuery(nativeSQL,Pet.class)
+	        			.setParameter("userid", user.getId()).getSingleResult();
+	        
+	        petRepository.setPetAsNotAdopted(pet);
+	        
+	        tx.commit();
+	        session.close();
+		}
+	}
+	
+	
 	
 	
 }
