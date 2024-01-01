@@ -17,6 +17,7 @@ public class Main {
 		if(userRepository.isUserExists("Ronnie_JD"))
 			System.out.println("yes Ronnie_JD");
 		
+		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 

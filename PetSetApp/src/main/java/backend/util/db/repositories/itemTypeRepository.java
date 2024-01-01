@@ -5,7 +5,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import backend.models.ItemType;
+import backend.models.Items;
 import backend.models.Pet;
+import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
 import jakarta.persistence.NoResultException;
@@ -56,6 +58,22 @@ public class itemTypeRepository {
 
 	        tx.commit();
 	        return itemTypes;
+		}
+	}
+	
+	public static List<Items> getItemsByGivenItemType(ItemType itemType){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT * FROM ITEMS WHERE itemTypeID = :itemtypeid";
+			
+	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
+	        				.setParameter("itemtypeid",itemType.getId())
+			                .getResultList();
+
+	        tx.commit();
+	        return items;
 		}
 	}
 }
