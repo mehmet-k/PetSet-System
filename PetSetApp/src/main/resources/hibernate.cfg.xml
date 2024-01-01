@@ -32,6 +32,10 @@
         <mapping class="backend.models.ItemType"/>
         <mapping class="backend.models.PetType"/>
         <mapping class="backend.models.userHasThisPet"/>
+        <mapping class="backend.models.userPurchase"/>
+        <mapping class="backend.models.Admin"/>
+        <mapping class="backend.models.adoptionRequest"/>
+        
         
     </session-factory>
 </hibernate-configuration>
