@@ -29,12 +29,13 @@ public class userRepository {
 			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.password=:Password";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
 							.setParameter("username", username)
-							.setParameter("password", Password)
+							.setParameter("Password", Password)
 							.getSingleResult();
 			return true;
 		} 
 		catch (NoResultException e) {
 		    // Handle case where no result is found
+			e.printStackTrace();
 		    return false;
 		} 
 	}
@@ -101,6 +102,5 @@ public class userRepository {
 	        return users;
 		}
 	}
-	
-
+		
 }
