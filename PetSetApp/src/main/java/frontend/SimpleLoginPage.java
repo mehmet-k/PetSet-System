@@ -68,6 +68,7 @@ public class SimpleLoginPage extends JFrame {
 
                 if (userRepository.areCredientialsCorrect(userName, new String(password))) {
                     dispose(); // Close the current login page
+                    new MainMenu();
                 } else {
                     System.out.println("false");
                     status.setText("Wrong Credentials!");
