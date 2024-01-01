@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.models.User;
 import backend.util.db.repositories.*;
 
 import javax.swing.*;
@@ -67,8 +68,9 @@ public class SimpleLoginPage extends JFrame {
                 System.out.println("Password: " + new String(password));
 
                 if (userRepository.areCredientialsCorrect(userName, new String(password))) {
-                    dispose(); // Close the current login page
-                    new MainMenu();
+                	 User loggedUser = userRepository.getUserFromUserName(userName);
+                	dispose(); // Close the current login page
+                    new MainMenu(loggedUser);
                 } else {
                     System.out.println("false");
                     status.setText("Wrong Credentials!");
