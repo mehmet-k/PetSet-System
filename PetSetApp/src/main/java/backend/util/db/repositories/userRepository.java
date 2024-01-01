@@ -40,6 +40,20 @@ public class userRepository {
 		    return false;
 		} 
 	}
+
+	public static boolean isAdmin(User user) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String nativeSQL = "SELECT a FROM Admin WHERE a.id = :ID";
+			User admin = (User)session.createQuery(nativeSQL,User.class)
+							.setParameter("ID", user.getId())
+							.getSingleResult();
+			return true;
+		} 
+		catch (NoResultException e) {
+		    // Handle case where no result is found
+		    return false;
+		} 
+	}
 	
 	public static void insertUser (User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
