@@ -24,9 +24,9 @@ public class userRepository {
 		} 
 	}
 	
-	public static User getUserFromUserName(String userName) {
+	public static User getUserFromUserName(String username) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT u FROM User u WHERE username = :userName";
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
 							.setParameter("userName", userName)
 							.getSingleResult();
