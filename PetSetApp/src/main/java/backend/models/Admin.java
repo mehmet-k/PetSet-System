@@ -15,8 +15,8 @@ public class Admin {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.AUTO)	
-	
 	private int id;
+	
 	public Admin() {
 		// TODO Auto-generated constructor stub
 	}
