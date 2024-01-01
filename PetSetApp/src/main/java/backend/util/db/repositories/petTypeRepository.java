@@ -61,6 +61,22 @@ public class petTypeRepository {
 		}
 	}
 	
+	public static List<Pet> getPetsByGivenPetType(PetType petType){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p FROM Pet p WHERE petTypeID=:pettypeid AND p.isadopted = 0 AND p.status = 1";
+			
+	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
+	        				.setParameter("pettypeid",petType.getId())
+			                .getResultList();
+
+	        tx.commit();
+	        return pets;
+		}
+	}
+	
 	
 
 }
