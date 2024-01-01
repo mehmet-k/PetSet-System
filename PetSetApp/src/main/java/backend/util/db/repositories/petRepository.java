@@ -1,15 +1,34 @@
 package backend.util.db.repositories;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import backend.models.Items;
 import backend.models.Pet;
+import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
+import jakarta.persistence.NoResultException;
 
 public class petRepository {
 
 	public petRepository() {
 		
+	}
+	
+	public static boolean isPetExists(int ID) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String nativeSQL = "SELECT p FROM Pet p WHERE p.id = :ID";
+			Pet pet =	(Pet)session.createQuery(nativeSQL,Pet.class)
+						.setParameter("ID", ID)
+						.getSingleResult();
+		    return true;
+		} 
+		catch (NoResultException e) {
+		    // Handle case where no result is found
+		    return false;
+		} 
 	}
 	
 	public static void insertPet (Pet pet) {
@@ -25,7 +44,8 @@ public class petRepository {
 	public static void removePet(Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE USER SET status = 0", Pet.class);
+			session.createQuery("UPDATE PET SET status = 0 WHERE id=:petID", Pet.class).
+						setParameter("petID", pet.getId());
 			tx.commit();
 			session.close();
 		}
@@ -36,6 +56,33 @@ public class petRepository {
 			
 	}
 	
+	public static List<Pet> getAllPets() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p FROM Pet p WHERE p.status = 1";
+			
+	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
+			                .getResultList();
+
+	        tx.commit();
+	        return pets;
+		}
+	}
+	
+	public static void setPetAsNotAdopted(Pet pet) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+					
+			Transaction tx = session.beginTransaction();
+			        
+			String nativeSQL = "UPDATE Pet SET isadopted=0 WHERE petID=:petid";
+			        
+			session.createQuery(nativeSQL,Pet.class)
+				.setParameter("petid", pet.getId());
+			        
+			tx.commit();
+		}
+	}
 	
 
 }

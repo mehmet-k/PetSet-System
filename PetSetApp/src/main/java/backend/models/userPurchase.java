@@ -27,4 +27,42 @@ public class userPurchase {
 	
 	@Column(name = "purchasedate")
 	private Date purchaseDate;
+
+	public userPurchase() {
+		
+	}
+	
+	public int getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+	
+	
 }

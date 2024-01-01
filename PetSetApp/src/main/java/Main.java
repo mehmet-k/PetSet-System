@@ -1,11 +1,8 @@
-import java.awt.print.Printable;
-import java.io.ObjectInputStream.GetField;
-import java.util.List;
 
+
+import java.util.List;
 import backend.models.Pet;
 import backend.models.User;
-import backend.util.db.repositories.petOwnershipRepository;
-import backend.util.db.repositories.petRepository;
 import backend.util.db.repositories.userRepository;
 
 public class Main {
@@ -14,12 +11,12 @@ public class Main {
 		Pet pet = new Pet(1,"Cat","Destroyer Of Worlds");
 		petRepository.insertPet(pet);
 		*/
-		User user = userRepository.getUserByUserID(22);
-		System.out.println(user.getUserName());
-		List<Pet> pets =  petOwnershipRepository.getUserPets(user);
-		for(Pet p : pets) {
-			System.out.println(p.getPetName());
-		}
+		if(userRepository.isUserExists("RJ_Dio"))
+			System.out.println("yes");
+
+		if(userRepository.isUserExists("Ronnie_JD"))
+			System.out.println("yes Ronnie_JD");
+		
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 
