@@ -19,7 +19,7 @@ public class SignUpPage extends JFrame {
     public SignUpPage() {
         setTitle("Sign Up Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(200, 400);
         setLocationRelativeTo(null);
 
         createSignUpPanel();
@@ -102,6 +102,8 @@ public class SignUpPage extends JFrame {
         panel.add(lastNameField);
         panel.add(addressLabel);
         panel.add(addressField);
+        panel.add(PasswordLabel);
+        panel.add(passwordField);
         panel.add(status);
         panel.add(status1);
         panel.add(signUpButton);
