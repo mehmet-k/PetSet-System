@@ -31,6 +31,8 @@ public class User {
 	@Column(name = "status")
 	private int status=1;
 	
+	@Column(name = "password")
+	private String password;
 
 	public User() {
 		// TODO Auto-generated constructor stub

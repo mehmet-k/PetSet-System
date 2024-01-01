@@ -25,8 +25,21 @@ public class userRepository {
 		    return false;
 		} 
 	}
-	
-	
+ 
+	public static boolean areCredientialsCorrect(String username, String Password) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.password=:Password";
+			User user =	(User)session.createQuery(nativeSQL,User.class)
+							.setParameter("username", username)
+							.setParameter("password", Password)
+							.getSingleResult();
+			return true;
+		} 
+		catch (NoResultException e) {
+		    // Handle case where no result is found
+		    return false;
+		} 
+	}
 	
 	public static void insertUser (User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
