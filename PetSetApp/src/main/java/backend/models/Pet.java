@@ -82,5 +82,13 @@ public class Pet {
 	public void setPetName(String petName) {
 		this.petName = petName;
 	}
+
+	public int getIsAdopted() {
+		return isAdopted;
+	}
+
+	public void setIsAdopted(int isAdopted) {
+		this.isAdopted = isAdopted;
+	}
 	
 }

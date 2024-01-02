@@ -9,7 +9,6 @@ import jakarta.persistence.NoResultException;
 
 public class userRepository {
 
-	
 	public static boolean isUserExists(String usermame) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
 			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
