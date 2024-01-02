@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import backend.models.Pet;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
+import backend.util.getModels.getUser;
 
 public class adoptionRequestsRepository {
 	
@@ -25,7 +26,7 @@ public class adoptionRequestsRepository {
 		}
 	}
 	
-	public static void removeUserFromAdoptionRequest(User applicant,User pet) {
+	public static void removeUserFromAdoptionRequest(User applicant,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
@@ -53,7 +54,19 @@ public class adoptionRequestsRepository {
 	        return users;
 		}
 	}
-	
-	
+		
+	public static List<Pet> getAdoptionRequestsOfAnUser(User user){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p FROM Pet p, adoptionRequest ar WHERE p.id = ar.petid AND ar.userID =: userid";
+			
+	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
+	        				.setParameter("userid", user.getId())
+			                .getResultList();
+	        tx.commit();
+	        return pets;
+		}
+	}
 	
 }

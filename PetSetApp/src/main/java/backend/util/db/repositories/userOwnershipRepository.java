@@ -59,5 +59,19 @@ public class userOwnershipRepository {
 	        return pets;
 		}
 	}
+	
 
+	public static void setPetOwner(Pet pet, User newOwner) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "UPDATE userHasThisPet SET userid=:newOwnerID WHERE petid=:petID ";
+			
+	        session.createQuery(nativeSQL,Pet.class)
+			                .setParameter("newOwnerID", newOwner.getId())
+			                .setParameter("petID", pet.getId());
+	        pet.setIsAdopted(1);//SHOULD TRIGGER TO CLOSE AD OF THIS PET
+	        tx.commit();
+		} 
+	}
 }
