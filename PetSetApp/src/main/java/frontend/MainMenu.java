@@ -68,6 +68,9 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for posting an adoption ad
                 System.out.println("Post an adoption ad button clicked");
+                
+                dispose();
+                new PublishAd(loggedInUser);
             }
         });
 
