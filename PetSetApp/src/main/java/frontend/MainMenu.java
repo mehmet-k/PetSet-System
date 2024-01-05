@@ -15,7 +15,7 @@ public class MainMenu extends JFrame {
     public MainMenu(User loggedUser) {
         setTitle("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 500);
+        setSize(600, 600);
         setLocationRelativeTo(null);
         User loggedInUser = loggedUser;
         createButtonPanel(loggedInUser);
@@ -28,19 +28,25 @@ public class MainMenu extends JFrame {
         panel.setLayout(new GridLayout(4, 2, 10, 10));
 
         JButton button1 = new JButton("Adopt a Pet");
-        JButton button2 = new JButton("See applications");
+        JButton button2 = new JButton("Your adoption application(s)");
         JButton button3 = new JButton("Post an adoption ad");
-        JButton button4 = new JButton("Your adoption ads");
+        JButton button4 = new JButton("Manage applications to your ad(s)");
         JButton button5 = new JButton("Buy pet Item");
+        JButton button6 = new JButton("Update profile");
+
         JLabel welcomeLabel = new JLabel("Welcome " + loggedInUser.getFirstName() + " " + loggedInUser.getSurname());
+        JLabel welcomeLabel1 = new JLabel();
 
         panel.add(welcomeLabel);
+        panel.add(welcomeLabel1);
 
         panel.add(button1);
         panel.add(button2);
         panel.add(button3);
         panel.add(button4);
         panel.add(button5);
+        panel.add(button6);
+
 
         add(panel);
 
@@ -50,6 +56,9 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for adopting a pet
                 System.out.println("Adopt a Pet button clicked");
+                
+                dispose();
+                new AdoptAPet(loggedInUser);
             }
         });
 
@@ -59,6 +68,8 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for seeing applications
                 System.out.println("See applications button clicked");
+                dispose();
+                new SeeYourApplications(loggedInUser);
             }
         });
 
@@ -80,6 +91,8 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for viewing your adoption ads
                 System.out.println("Your adoption ads button clicked");
+                dispose();
+                new ManageApplications(loggedInUser);
             }
         });
 
@@ -89,6 +102,16 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for buying a pet item
                 System.out.println("Buy pet Item button clicked");
+            }
+        });
+        
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Replace with your logic for buying a pet item
+                System.out.println("Update clicked");
+                dispose();
+                new UpdateProfile(loggedInUser);
             }
         });
     }
