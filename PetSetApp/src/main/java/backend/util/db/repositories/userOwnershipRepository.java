@@ -71,7 +71,10 @@ public class userOwnershipRepository {
 			                .setParameter("newOwnerID", newOwner.getId())
 			                .setParameter("petID", pet.getId());
 	        pet.setIsAdopted(1);//SHOULD TRIGGER TO CLOSE AD OF THIS PET
+	        session.save(pet);
 	        tx.commit();
 		} 
 	}
+	
+	
 }

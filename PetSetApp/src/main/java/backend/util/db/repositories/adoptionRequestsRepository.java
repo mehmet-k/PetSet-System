@@ -68,4 +68,20 @@ public class adoptionRequestsRepository {
 		}
 	}
 	
+	public static int getCountOfPetAdoptionRequestsByPet(Pet pet){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT count(*)"
+					+ "FROM user_has_this_pet uhtp, PET p"
+					+ "WHERE uhtp.petid = :petid";
+			
+	        Integer i = (Integer)session.createQuery(nativeSQL,Integer.class)
+	        					.setParameter("petid", pet.getId())
+	        					.getSingleResult();
+	        tx.commit();
+	        return i;
+		}
+	}
+	
 }
