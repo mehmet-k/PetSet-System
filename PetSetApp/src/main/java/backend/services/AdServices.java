@@ -1,15 +1,19 @@
 package backend.services;
 
 import java.util.List;
+
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.repositories.adoptionRequestsRepository;
+import backend.util.db.repositories.petRepository;
+import backend.util.db.repositories.petTypeRepository;
 import backend.util.db.repositories.userOwnershipRepository;
 
 public class AdServices {
 	
-	public static Pet createPetAd(PetType petType,String petName) {
+	public static Pet createPetAd(String petTypeName,String petName) {
+		PetType petType = petTypeRepository.returnPetTypeByPetTypeName(petTypeName);
 		Pet pet = new Pet(petType.getId(),petType.getPetType(),petName);
 		return pet;
 	}
@@ -18,8 +22,8 @@ public class AdServices {
 		userOwnershipRepository.addPetToUser(user, pet);
 	}
 	
-	public static void applyToPetAdoption(User owner, User applicant, Pet pet) {
-		adoptionRequestsRepository.addUserToAdoptionRequest(owner, applicant, pet);
+	public static void applyToPetAdoption(User applicant, Pet pet) {
+		adoptionRequestsRepository.addUserToAdoptionRequest(applicant, pet);
 	}
 	
 	public static List<User> getAllApplicantsByPet(Pet pet){
@@ -38,7 +42,11 @@ public class AdServices {
 		userOwnershipRepository.setPetOwner(pet, applicant);
 	}
 	
+	public static List<Pet> getPetListByCityAndPetType(String city, String petTypeName){
+		PetType petType = petTypeRepository.returnPetTypeByPetTypeName(petTypeName);
+		List<Pet> pets = petRepository.getAllPetsByCityAndPetType(petType, city);
+		return pets;
+	}
 	
 	
-
 }

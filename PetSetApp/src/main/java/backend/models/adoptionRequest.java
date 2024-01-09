@@ -16,9 +16,6 @@ public class adoptionRequest {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int applicantID;
 	
-	@Column(name="ownerid")
-	private int ownerID;
-	
 	@Column(name="petid")
 	private int petID;
 	
@@ -28,13 +25,6 @@ public class adoptionRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getOwnerID() {
-		return ownerID;
-	}
-
-	public void setOwnerID(int ownerID) {
-		this.ownerID = ownerID;
-	}
 
 	public int getApplicantID() {
 		return applicantID;
