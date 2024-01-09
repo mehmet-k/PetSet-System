@@ -11,7 +11,7 @@ public class userRepository {
 
 	public static boolean isUserExists(String usermame) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.status = 1";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
 						.setParameter("username", usermame)
 						.getSingleResult();
@@ -25,7 +25,7 @@ public class userRepository {
 	
 	public static User getUserFromUserName(String username) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username";
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.status = 1";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
 							.setParameter("username", username)
 							.getSingleResult();
@@ -40,7 +40,7 @@ public class userRepository {
 	
 	public static boolean areCredientialsCorrect(String username, String Password) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.password=:Password";
+			String nativeSQL = "SELECT u FROM User u WHERE u.userName = :username AND u.password=:Password AND u.status = 1";
 			User user =	(User)session.createQuery(nativeSQL,User.class)
 							.setParameter("username", username)
 							.setParameter("Password", Password)
@@ -56,7 +56,7 @@ public class userRepository {
 
 	public static boolean isAdmin(User user) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT a FROM Admin WHERE a.id = :ID";
+			String nativeSQL = "SELECT a FROM Admin WHERE a.id = :ID AND a.status = 1";
 			User admin = (User)session.createQuery(nativeSQL,User.class)
 							.setParameter("ID", user.getId())
 							.getSingleResult();

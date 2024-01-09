@@ -8,6 +8,7 @@ import org.hibernate.query.UnknownSqlResultSetMappingException;
 
 import backend.models.Items;
 import backend.models.Pet;
+import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
 import jakarta.persistence.NoResultException;
@@ -65,6 +66,23 @@ public class petRepository {
 			
 	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
 			                .getResultList();
+
+	        tx.commit();
+	        return pets;
+		}
+	}
+	
+	public static List<Pet> getAllPetsByCityAndPetType(PetType petType, String city){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT p"
+					+ "FROM pet p, users u, user_has_this_pet uhtp"
+					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND u.address LIKE ':city'";
+			
+			 List<Pet> pets = (List<Pet>)session.createQuery(nativeSQL,Pet.class)
+								 	.setParameter("city", city)
+					                .getResultList();
 
 	        tx.commit();
 	        return pets;

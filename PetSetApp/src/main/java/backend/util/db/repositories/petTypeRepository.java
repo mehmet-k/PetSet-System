@@ -16,7 +16,7 @@ public class petTypeRepository {
 	
 	public static boolean isPetTypeExists(String pettype) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.petType = :pettype";
+			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.petType = :pettype AND pt.status = 1";
 			PetType petType =	(PetType)session.createQuery(nativeSQL,PetType.class)
 						.setParameter("pettype", pettype)
 						.getSingleResult();
@@ -75,6 +75,18 @@ public class petTypeRepository {
 	        tx.commit();
 	        return pets;
 		}
+	}
+	
+	public static PetType returnPetTypeByPetTypeName(String petTypeName) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+			String nativeSQL = "SELECT pt FROM pettype pt WHERE pettype =:pet_type";
+			PetType petType = (PetType) session.createQuery(nativeSQL, PetType.class)
+									.setParameter("pet_type", petTypeName);
+			tx.commit();
+			session.close();
+			return petType;
+		}	
 	}
 	
 	

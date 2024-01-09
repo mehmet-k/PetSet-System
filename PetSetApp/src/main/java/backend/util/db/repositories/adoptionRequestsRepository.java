@@ -11,16 +11,15 @@ import backend.util.getModels.getUser;
 
 public class adoptionRequestsRepository {
 	
-	public static void addUserToAdoptionRequest(User owner,User applicant,Pet pet) {
+	public static void addUserToAdoptionRequest(User applicant,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-	        String nativeSQL = "SELECT insert_into_adoption_requests(ownerID,:userID,:petID)";
+	        String nativeSQL = "SELECT insert_into_adoption_requests(:userID,:petID)";
 	        session.createQuery(nativeSQL)
 	                .setParameter("userID", applicant.getId())
-	                .setParameter("petID", pet.getId())
-	                .setParameter("ownerID",owner.getId());
-
+	                .setParameter("petID", pet.getId());
+	        
 	        tx.commit();
 	        session.close();
 		}

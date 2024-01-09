@@ -66,7 +66,7 @@ public class itemTypeRepository {
 			
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT * FROM ITEMS WHERE itemTypeID = :itemtypeid";
+			String nativeSQL = "SELECT i FROM Items i WHERE itemTypeID = :itemtypeid AND it.status = 1";
 			
 	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
 	        				.setParameter("itemtypeid",itemType.getId())
