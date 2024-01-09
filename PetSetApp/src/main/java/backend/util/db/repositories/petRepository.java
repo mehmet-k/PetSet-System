@@ -77,11 +77,16 @@ public class petRepository {
 			Transaction tx = session.beginTransaction();
 	        
 			String nativeSQL = "SELECT p"
-					+ "FROM pet p, users u, user_has_this_pet uhtp"
-					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND u.address LIKE ':city'";
+					+ "FROM pet p, user_has_this_pet uhtp, users u"
+					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND u.address LIKE '%:city%'"
+					+ "INTERSECT"
+					+ "SELECT p"
+					+ "FROM pet p, user_has_this_pet uhtp, users u"
+					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND p.pettype = :pet_type";
 			
 			 List<Pet> pets = (List<Pet>)session.createQuery(nativeSQL,Pet.class)
 								 	.setParameter("city", city)
+								 	.setParameter("pet_type", petType.getPetType())
 					                .getResultList();
 
 	        tx.commit();
