@@ -24,20 +24,7 @@ public class Main {
 		if(userRepository.isUserExists("Ronnie_JD"))
 			System.out.println("yes Ronnie_JD");
 		
-		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
-		
-		
-	
-		User owner =  userRepository.getUserByUserID(22);
-		
-		Pet pet = AdServices.createPetAd("Cat", "Pera");
-		AdServices.publishAd(owner, pet);
-		
-		User applicatUser;
-		for(int i = 23 ; i<=27;i++) {
-			applicatUser = userRepository.getUserByUserID(i);
-			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pet);
-		}
+		AdServices.getPetListByCityAndPetType("Ankara", "Cat");
 		
 		/*
 		System.out.println(pet.getId());
