@@ -54,8 +54,17 @@ public class petRepository {
 	}
 	
 	
-	public static void hardDeletePet() {
+	public static void hardDeleteInactivePets() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM Pet WHERE status = 0";
 			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
 	}
 	
 	public static List<Pet> getAllPets() {

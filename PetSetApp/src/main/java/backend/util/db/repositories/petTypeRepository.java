@@ -89,6 +89,19 @@ public class petTypeRepository {
 		}	
 	}
 	
+	public static void hardDeleteInactivePetTypes() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM PetType WHERE status = 0";
+			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
+	}
+	
 	
 
 }

@@ -84,4 +84,17 @@ public class adoptionRequestsRepository {
 		}
 	}
 	
+	public static void hardDeleteinaciveAdoptionRequests() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM adoptionRequests WHERE status = 0";
+			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
+	}
+	
 }

@@ -76,5 +76,17 @@ public class userOwnershipRepository {
 		} 
 	}
 	
+	public static void hardDeleteInactiveOwnerships() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM userHasThisPet WHERE status = 0";
+			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
+	}
 	
 }

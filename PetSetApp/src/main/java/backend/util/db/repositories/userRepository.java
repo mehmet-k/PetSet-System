@@ -98,8 +98,17 @@ public class userRepository {
 	}
 
 	
-	public static void hardDeleteUser(User user) {
-		
+	public static void hardDeleteInactiveUsers() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM User WHERE status = 0";
+			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
 	}
 
 		
@@ -116,5 +125,6 @@ public class userRepository {
 	        return users;
 		}
 	}
+
 		
 }

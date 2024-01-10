@@ -45,8 +45,17 @@ public class itemsRepository {
 		}
 	}
 		
-	public static void hardDeleteItem() {
+	public static void hardDeleteInactiveItems() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "DELETE FROM Items WHERE status = 0";
 			
+	        session.createQuery(nativeSQL,Integer.class);
+	        
+	        tx.commit();
+	        session.close();
+		}
 	}
 	
 	public static List<Items> getAllItems() {

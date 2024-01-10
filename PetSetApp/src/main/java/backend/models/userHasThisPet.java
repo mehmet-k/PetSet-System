@@ -25,8 +25,6 @@ public class userHasThisPet {
 	@Column(name = "status")
 	private int status;
 	
-	@Column(name = "adoptiondate")
-	private Date dateField;
 
 	public userHasThisPet() {
 		super();
