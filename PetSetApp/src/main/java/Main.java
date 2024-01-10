@@ -26,23 +26,21 @@ public class Main {
 		
 		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
 		
-		User owner =  userRepository.getUserByUserID(22);
 		
-		Pet pet;
-		pet= AdServices.createPetAd("Cat", "test2");
-		AdServices.publishAd(owner, pet);
-		
-		/*
-		User owner =  userRepository.getUserByUserID(22);
+	
+		//User owner =  userRepository.getUserByUserID(22);
 		List<Pet> pets = petRepository.getAllPets();
-		userOwnershipRepository.addPetToUser(owner, pets.get(0));
-		
+		//userOwnershipRepository.addPetToUser(owner, pets.get(0));
+		/*
 		User applicatUser;
 		for(int i = 23 ; i<=27;i++) {
 			applicatUser = userRepository.getUserByUserID(i);
 			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pets.get(0));
 		}
 		*/
+		System.out.println(pets.get(0).getId());
+		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pets.get(0));
+	
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 
