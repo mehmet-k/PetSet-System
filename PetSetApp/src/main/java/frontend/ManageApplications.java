@@ -1,15 +1,19 @@
 package frontend;
 import javax.swing.*;
 import backend.services.AdServices;
+import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.repositories.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ManageApplications extends JFrame {
 
+	 private JList<String> petList;
+	    private DefaultListModel<String> listModel;
     private JTextField petNameField;
     private JTextField petTypeField;
     private JTextField lastNameField;
@@ -106,5 +110,14 @@ public class ManageApplications extends JFrame {
 
         // Set up the frame with the panel
         getContentPane().add(panel);
+    }
+    private void updatePetList(List<Pet> pets) {
+        // Clear the existing list
+        listModel.clear();
+
+        // Add pet names to the list model
+        for (Pet pet : pets) {
+            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
+        }
     }
 }
