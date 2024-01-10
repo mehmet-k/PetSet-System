@@ -73,6 +73,20 @@ public class itemsRepository {
 		}
 	}
 	
+	public static List<Integer> getCountOfItemsByPrice(int lowerBound, int upperBound){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT i.price , count(*) itemCount FROM Items i "
+					+ "GROUP BY i.price HAVING i.price > 0 AND i.price < 100";
+			
+	        List<Integer> priceCount =(List<Integer>)session.createQuery(nativeSQL,Integer.class)
+			                .getResultList();
+
+	        tx.commit();
+	        return priceCount;
+		}
+	}
 	
 	
 }

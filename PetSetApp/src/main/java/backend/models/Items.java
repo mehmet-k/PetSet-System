@@ -1,5 +1,6 @@
 package backend.models;
 
+import frontend.index;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
@@ -29,15 +30,28 @@ public class Items {
 	@Column(name = "status")
 	private int status=1;
 
+	@Column(name = "price")
+	private int price;
+	
 	public Items() {
 		
 	}
 	
-	public Items(int itemTypeId, String itemType, String itemName) {
+	public Items(int itemTypeId, String itemType, String itemName,int price) {
 		super();
 		this.itemTypeId = itemTypeId;
 		this.itemType = itemType;
 		this.itemName = itemName;
+		this.price = price;
+	}
+
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public int getId() {
