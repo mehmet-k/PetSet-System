@@ -58,7 +58,7 @@ public class petRepository {
 	        
 			String nativeSQL = "DELETE FROM Pet WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

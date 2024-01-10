@@ -92,9 +92,9 @@ public class userOwnershipRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "DELETE FROM userHasThisPet WHERE status = 0";
+			String nativeSQL = "DELETE FROM user_has_this_pet WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

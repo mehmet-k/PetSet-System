@@ -56,7 +56,7 @@ public class userRepository {
 
 	public static boolean isAdmin(User user) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			String nativeSQL = "SELECT a FROM Admin WHERE a.id = :ID AND a.status = 1";
+			String nativeSQL = "SELECT a FROM Admin a WHERE a.id = :ID AND a.status = 1";
 			User admin = (User)session.createQuery(nativeSQL,User.class)
 							.setParameter("ID", user.getId())
 							.getSingleResult();
@@ -105,7 +105,7 @@ public class userRepository {
 	        
 			String nativeSQL = "DELETE FROM User WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

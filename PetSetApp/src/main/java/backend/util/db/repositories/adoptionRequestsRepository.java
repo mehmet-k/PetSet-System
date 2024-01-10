@@ -30,7 +30,7 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-	        String nativeSQL = "UPDATE adoptionRequest SET status=0 WHERE userid=:userID AND petid=:petID";
+	        String nativeSQL = "UPDATE adoptionRequest SET status=0 WHERE userID=:userID AND petID=:petID";
 	        session.createNativeQuery(nativeSQL)
 	                .setParameter("userID", applicant.getId())
 	                .setParameter("petID", pet.getId())
@@ -45,8 +45,8 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT u FROM User u, Pet p, adoptionRequest ar"
-					+"WHERE p.id = ar.petid AND u.id = ar.applicantid";
+			String nativeSQL = "SELECT u FROM User u, Pet p, adoptionRequest ar "
+					+"WHERE p.id = ar.petID AND u.id = ar.applicantID";
 			
 	        List<User> users =(List<User>)session.createQuery(nativeSQL,User.class)
 			                .setParameter("petID", pet.getId())
@@ -74,9 +74,9 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT count(*)"
-					+ "FROM user_has_this_pet uhtp, PET p"
-					+ "WHERE uhtp.petid = :petid";
+			String nativeSQL = "SELECT count(*) "
+					+ "FROM userHasThisPet uhtp, Pet p "
+					+ "WHERE uhtp.petID = :petid ";
 			
 	        Integer i = (Integer)session.createQuery(nativeSQL,Integer.class)
 	        					.setParameter("petid", pet.getId())
@@ -92,7 +92,7 @@ public class adoptionRequestsRepository {
 	        
 			String nativeSQL = "DELETE FROM adoptionRequests WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

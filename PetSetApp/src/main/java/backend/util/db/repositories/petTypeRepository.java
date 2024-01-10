@@ -40,7 +40,7 @@ public class petTypeRepository {
 	public static void removePetType(PetType petType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createNativeQuery("UPDATE PetType SET status = 0 WHERE id =:petTypeID", PetType.class)
+			session.createNativeQuery("UPDATE PetType SET status = 0 WHERE id =:petTypeID")
 								.setParameter("petTypeID", petType.getId())
 								.executeUpdate();
 			tx.commit();
@@ -52,7 +52,7 @@ public class petTypeRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT pt FROM PetTypes pt WHERE pt.status = 1";
+			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.status = 1";
 			
 	        List<PetType> petTypes =(List<PetType>)session.createQuery(nativeSQL,PetType.class)
 			                .getResultList();
@@ -97,7 +97,7 @@ public class petTypeRepository {
 	        
 			String nativeSQL = "DELETE FROM PetType WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

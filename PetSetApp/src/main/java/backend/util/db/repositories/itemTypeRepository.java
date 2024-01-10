@@ -84,7 +84,7 @@ public class itemTypeRepository {
 	        
 			String nativeSQL = "DELETE FROM ItemType WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

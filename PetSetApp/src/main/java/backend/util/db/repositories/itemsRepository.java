@@ -52,7 +52,7 @@ public class itemsRepository {
 	        
 			String nativeSQL = "DELETE FROM Items WHERE status = 0";
 			
-	        session.createQuery(nativeSQL,Integer.class);
+	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
 	        tx.commit();
 	        session.close();
