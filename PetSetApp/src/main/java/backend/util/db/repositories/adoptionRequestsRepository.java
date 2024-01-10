@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import backend.models.Pet;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
-import backend.util.getModels.getUser;
+
 
 public class adoptionRequestsRepository {
 	
@@ -18,7 +18,8 @@ public class adoptionRequestsRepository {
 	        String nativeSQL = "SELECT insert_into_adoption_requests(:userID,:petID)";
 	        session.createQuery(nativeSQL)
 	                .setParameter("userID", applicant.getId())
-	                .setParameter("petID", pet.getId());
+	                .setParameter("petID", pet.getId())
+	                .uniqueResult();
 	        
 	        tx.commit();
 	        session.close();
