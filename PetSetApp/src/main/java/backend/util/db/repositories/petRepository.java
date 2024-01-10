@@ -4,12 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.UnknownSqlResultSetMappingException;
 
-import backend.models.Items;
 import backend.models.Pet;
 import backend.models.PetType;
-import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
 import jakarta.persistence.NoResultException;
 
@@ -87,11 +84,11 @@ public class petRepository {
 			Transaction tx = session.beginTransaction();
 	        
 			String nativeSQL = "SELECT p"
-					+ "FROM pet p, user_has_this_pet uhtp, users u"
+					+ "FROM Pet p, userHasThisPet uhtp, User u"
 					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND u.address LIKE '%:city%'"
 					+ "INTERSECT"
 					+ "SELECT p"
-					+ "FROM pet p, user_has_this_pet uhtp, users u"
+					+ "FROM Pet p, userHasThisPet uhtp, User u"
 					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND p.pettype = :pet_type";
 			
 			 List<Pet> pets = (List<Pet>)session.createQuery(nativeSQL,Pet.class)

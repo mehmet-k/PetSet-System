@@ -28,20 +28,21 @@ public class Main {
 		
 		
 	
-		//User owner =  userRepository.getUserByUserID(22);
-		List<Pet> pets = petRepository.getAllPets();
-		Pet pet = petRepository.getPetByID(2);
-		//userOwnershipRepository.addPetToUser(owner, pets.get(0));
-		/*
+		User owner =  userRepository.getUserByUserID(22);
+		
+		Pet pet = AdServices.createPetAd("Cat", "Pera");
+		AdServices.publishAd(owner, pet);
+		
 		User applicatUser;
 		for(int i = 23 ; i<=27;i++) {
 			applicatUser = userRepository.getUserByUserID(i);
-			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pets.get(0));
+			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pet);
 		}
-		*/
+		
+		/*
 		System.out.println(pet.getId());
 		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pet);
-	
+	*/
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 
