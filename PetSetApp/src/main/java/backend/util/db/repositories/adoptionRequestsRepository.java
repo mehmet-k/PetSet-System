@@ -31,9 +31,10 @@ public class adoptionRequestsRepository {
 			Transaction tx = session.beginTransaction();
 	        
 	        String nativeSQL = "UPDATE adoptionRequest SET status=0 WHERE userid=:userID AND petid=:petID";
-	        session.createQuery(nativeSQL)
+	        session.createNativeQuery(nativeSQL)
 	                .setParameter("userID", applicant.getId())
-	                .setParameter("petID", pet.getId());
+	                .setParameter("petID", pet.getId())
+	                .executeUpdate();
 	        
 	        tx.commit();
 	        session.close();

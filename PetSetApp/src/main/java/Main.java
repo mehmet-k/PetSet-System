@@ -30,6 +30,7 @@ public class Main {
 	
 		//User owner =  userRepository.getUserByUserID(22);
 		List<Pet> pets = petRepository.getAllPets();
+		Pet pet = petRepository.getPetByID(2);
 		//userOwnershipRepository.addPetToUser(owner, pets.get(0));
 		/*
 		User applicatUser;
@@ -38,8 +39,8 @@ public class Main {
 			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pets.get(0));
 		}
 		*/
-		System.out.println(pets.get(0).getId());
-		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pets.get(0));
+		System.out.println(pet.getId());
+		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pet);
 	
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);

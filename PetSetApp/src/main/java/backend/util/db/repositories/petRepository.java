@@ -46,8 +46,9 @@ public class petRepository {
 	public static void removePet(Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE PET SET status = 0 WHERE id=:petID", Pet.class).
-						setParameter("petID", pet.getId());
+			session.createNativeQuery("UPDATE PET SET status = 0 WHERE id=:petID").
+						setParameter("petID", pet.getId())
+						.executeUpdate();
 			tx.commit();
 			session.close();
 		}
@@ -110,10 +111,27 @@ public class petRepository {
 			        
 			String nativeSQL = "UPDATE Pet SET isadopted=0 WHERE petID=:petid";
 			        
-			session.createQuery(nativeSQL,Pet.class)
-				.setParameter("petid", pet.getId());
+			session.createNativeQuery(nativeSQL)
+				.setParameter("petid", pet.getId())
+				.executeUpdate();
 			        
 			tx.commit();
+		}
+	}
+	
+	public static Pet getPetByID(int id) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			
+			Transaction tx = session.beginTransaction();
+			        
+			String nativeSQL = "SELECT p FROM Pet p WHERE p.id = :petid";
+			        
+			Pet pet = session.createQuery(nativeSQL,Pet.class)
+						.setParameter("petid", id)
+						.getSingleResult();
+			        
+			tx.commit();
+			return pet;
 		}
 	}
 	

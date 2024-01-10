@@ -40,8 +40,9 @@ public class itemTypeRepository {
 	public void removeItemType(ItemType itemType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE ItemType SET status = 0 WHERE id =:petTypeID", ItemType.class)
-								.setParameter("petTypeID", itemType.getId());
+			session.createNativeQuery("UPDATE ItemType SET status = 0 WHERE id =:petTypeID")
+								.setParameter("petTypeID", itemType.getId())
+								.executeUpdate();
 			tx.commit();
 			session.close();
 		}

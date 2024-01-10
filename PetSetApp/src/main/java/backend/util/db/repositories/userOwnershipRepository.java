@@ -27,14 +27,16 @@ public class userOwnershipRepository {
 		}
 	}
 	
-	public static void removePetFromUser(User user) {
+	public static void removePetFromUser(User user,Pet pet) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "UPDATE userHasThisPet SET status=0 WHERE userID=:userid";
-	        Pet pet =	session.createQuery(nativeSQL,Pet.class)
-	        			.setParameter("userid", user.getId()).getSingleResult();
+			String nativeSQL = "UPDATE userHasThisPet SET status=0 WHERE userID=:userid AND petID=:petid";
+	        	session.createNativeQuery(nativeSQL)
+	        			.setParameter("userid", user.getId())
+	        			.setParameter("petid", pet.getId())
+	        			.executeUpdate();
 	        
 	        petRepository.setPetAsNotAdopted(pet);
 	        
@@ -65,14 +67,24 @@ public class userOwnershipRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "UPDATE userHasThisPet SET userID=:newOwnerID WHERE petID=:petID ";
+			String nativeSQL = "UPDATE user_Has_This_Pet SET userID=:newOwnerID WHERE petID=:petID ";
 			
-	        session.createQuery(nativeSQL)
+	        session.createNativeQuery(nativeSQL)
 			                .setParameter("newOwnerID", newOwner.getId())
-			                .setParameter("petID", pet.getId());
-	        pet.setIsAdopted(1);//SHOULD TRIGGER TO CLOSE AD OF THIS PET
-	        session.save(pet);
+			                .setParameter("petID", pet.getId())
+			                .executeUpdate();
+	        
 	        tx.commit();
+	        session.close();
+		}
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        String nativeSQL = "UPDATE Pet SET isAdopted = 1 WHERE id=:petid";
+	        session.createNativeQuery(nativeSQL)
+	        			.setParameter("petid", pet.getId())
+	        			.executeUpdate();
+	        tx.commit();
+	        session.close();
 		} 
 	}
 	

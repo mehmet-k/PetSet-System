@@ -40,8 +40,9 @@ public class petTypeRepository {
 	public static void removePetType(PetType petType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE PetType SET status = 0 WHERE id =:petTypeID", PetType.class)
-								.setParameter("petTypeID", petType.getId());
+			session.createNativeQuery("UPDATE PetType SET status = 0 WHERE id =:petTypeID", PetType.class)
+								.setParameter("petTypeID", petType.getId())
+								.executeUpdate();
 			tx.commit();
 			session.close();
 		}

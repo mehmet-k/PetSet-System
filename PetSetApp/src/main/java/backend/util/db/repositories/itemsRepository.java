@@ -38,8 +38,9 @@ public class itemsRepository {
 	public static void removeItem(Items item) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createQuery("UPDATE Items SET status = 0 WHERE id = :itemID" , Items.class)
-						.setParameter("itemID",item.getId());
+			session.createNativeQuery("UPDATE Items SET status = 0 WHERE id = :itemID")
+						.setParameter("itemID",item.getId())
+						.executeUpdate();
 			tx.commit();
 			session.close();
 		}
