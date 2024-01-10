@@ -1,3 +1,4 @@
+
 package frontend;
 import javax.swing.*;
 import backend.services.AdServices;
@@ -12,14 +13,16 @@ import java.util.List;
 
 public class AdoptAPet extends JFrame {
 
-    private JTextField petNameField;
+    private JList<String> petList;
+    private DefaultListModel<String> listModel;
     private JTextField petTypeField;
-    private JTextField lastNameField;
+    private JTextField petCityField;
+
     private JTextField addressField;
     private JTextField passwordField;
-    private String petname;
     private String pettype;
-    private PetType petypee;
+    private String petcity;
+
     private User userr;
 
     public AdoptAPet(User user) {
@@ -58,43 +61,45 @@ public class AdoptAPet extends JFrame {
         JLabel petCityLabel = new JLabel("Pet Location:");
         panel.add(petCityLabel, gbc);
         gbc.gridx++;
-        petTypeField = new JTextField(15);
-        panel.add(petTypeField, gbc);
+        petCityField = new JTextField(15);
+        panel.add(petCityField, gbc);
 
 
         gbc.gridx = 0;
         gbc.gridy++;
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        JLabel status = new JLabel("");
-        panel.add(status, gbc);
+        listModel = new DefaultListModel<>();
+        petList = new JList<>(listModel);
+        
+     
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JButton listType = new JButton("list");
+        JButton listType = new JButton("List");
         listType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Perform sign-up logic here
-                // For simplicity, we are just displaying the entered information
-
-            	List<Pet> pets = AdServices.getPetListByCityAndPetType(petname, pettype);
+                // Get pet list and update JList
                 pettype = petTypeField.getText();
-                
-                // o türe sahip tüm listeyi döndürecek fonksiyon
-
+                petcity = petCityField.getText();
+                List<Pet> pets = AdServices.getPetListByCityAndPetType(petcity, pettype);
+                updatePetList(pets);
             }
         });
-
-        // Add the publish button to the panel
         panel.add(listType, gbc);
         
+     
         gbc.gridx = 0;
         gbc.gridy++;
         JLabel petsLabel = new JLabel("Pets:");
         panel.add(petsLabel, gbc);
        
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JScrollPane scrollPane = new JScrollPane(petList);
+        panel.add(scrollPane, gbc);
+        
         
         
         
@@ -156,4 +161,15 @@ public class AdoptAPet extends JFrame {
         // Set up the frame with the panel
         getContentPane().add(panel);
     }
+    
+    private void updatePetList(List<Pet> pets) {
+        // Clear the existing list
+        listModel.clear();
+
+        // Add pet names to the list model
+        for (Pet pet : pets) {
+            listModel.addElement(pet.getPetName());
+        }
+    }
 }
+

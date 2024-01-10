@@ -76,11 +76,23 @@ public class PublishAd extends JFrame {
 
                 petname = petNameField.getText();
                 pettype = petTypeField.getText();
+                pettype = pettype.toLowerCase();
+                
+                if( !petname.equals("") && pettype.equals("cat") || pettype.equals("dog") ||  pettype.equals("fish") ||  pettype.equals("bird") ||  pettype.equals("rabbit")) {
+                	 Pet pet = AdServices.createPetAd(pettype, petname);
+                     
+                     AdServices.publishAd(userr, pet);
+                     status.setText("Published !");
+                }
+                else if(petname.equals("")) {
+                    status.setText("Pet name is empty!");
+                }
+                else {
+                    status.setText("Pet type is invalid !");
+
+                }
               
-                Pet pet = AdServices.createPetAd(pettype, petname);
-                
-                AdServices.publishAd(userr, pet);
-                
+             
                 /*
                 switch (pettype) {
                     case "Cat":
