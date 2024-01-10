@@ -3,6 +3,9 @@
 import java.util.List;
 import backend.models.Pet;
 import backend.models.User;
+import backend.services.AdServices;
+import backend.util.db.repositories.adoptionRequestsRepository;
+import backend.util.db.repositories.userOwnershipRepository;
 import backend.util.db.repositories.userRepository;
 
 public class Main {
@@ -18,6 +21,20 @@ public class Main {
 			System.out.println("yes Ronnie_JD");
 		
 		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
+		
+		User user = userRepository.getUserFromUserName("Ronnie_JD");
+		
+		
+		List<Pet> pets = userOwnershipRepository.getUserPets(user);
+		
+		for(Pet pet : pets) {
+			System.out.println(pet.getPetName());
+		}
+		
+		User applicantUser;
+		applicantUser = userRepository.getUserByUserID(24);
+		AdServices.confirmPetAdoption(applicantUser, pets.get(1));
+		
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 

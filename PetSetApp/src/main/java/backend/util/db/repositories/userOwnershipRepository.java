@@ -65,11 +65,12 @@ public class userOwnershipRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "UPDATE userHasThisPet SET userid=:newOwnerID WHERE petid=:petID ";
+			String nativeSQL = "UPDATE userHasThisPet SET userID=:newOwnerID WHERE petID=:petID ";
 			
-	        session.createQuery(nativeSQL,Pet.class)
+	        session.createQuery(nativeSQL)
 			                .setParameter("newOwnerID", newOwner.getId())
-			                .setParameter("petID", pet.getId());
+			                .setParameter("petID", pet.getId())
+			                .uniqueResult();
 	        pet.setIsAdopted(1);//SHOULD TRIGGER TO CLOSE AD OF THIS PET
 	        session.save(pet);
 	        tx.commit();

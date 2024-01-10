@@ -92,7 +92,7 @@ public class PublishAd extends JFrame {
                         break;
                 }
 
-                AdServices.publishAd(userr, AdServices.createPetAd(petypee, petname));
+                AdServices.publishAd(userr, AdServices.createPetAd(petypee.getPetType(), petname));
             }
         });
 
