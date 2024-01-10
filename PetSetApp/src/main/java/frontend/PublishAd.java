@@ -1,12 +1,14 @@
 package frontend;
 import javax.swing.*;
 import backend.services.AdServices;
+import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.repositories.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import backend.services.AdServices;
 
 public class PublishAd extends JFrame {
 
@@ -19,6 +21,7 @@ public class PublishAd extends JFrame {
     private String pettype;
     private PetType petypee;
     private User userr;
+    private Pet pet;
 
     public PublishAd(User user) {
         setTitle("Publish ad");
@@ -74,9 +77,12 @@ public class PublishAd extends JFrame {
 
                 petname = petNameField.getText();
                 pettype = petTypeField.getText();
-
-                petypee = new PetType();
+              
+                Pet pet = AdServices.createPetAd(pettype, petname);
                 
+                AdServices.publishAd(userr, pet);
+                
+                /*
                 switch (pettype) {
                     case "Cat":
                         petypee.setPetType("Cat");
@@ -91,8 +97,8 @@ public class PublishAd extends JFrame {
                         petypee.setId(3);
                         break;
                 }
-
-                AdServices.publishAd(userr, AdServices.createPetAd(petypee, petname));
+*/
+                //AdServices.publishAd(userr, AdServices.createPetAd(petypee, petname));
             }
         });
 
@@ -115,4 +121,17 @@ public class PublishAd extends JFrame {
         // Set up the frame with the panel
         getContentPane().add(panel);
     }
+    
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+            	
+            	
+            }
+        });
+    }
+    
+    
 }
