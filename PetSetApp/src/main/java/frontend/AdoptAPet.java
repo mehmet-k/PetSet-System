@@ -1,12 +1,14 @@
 package frontend;
 import javax.swing.*;
 import backend.services.AdServices;
+import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.util.db.repositories.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AdoptAPet extends JFrame {
 
@@ -77,6 +79,7 @@ public class AdoptAPet extends JFrame {
                 // Perform sign-up logic here
                 // For simplicity, we are just displaying the entered information
 
+            	List<Pet> pets = AdServices.getPetListByCityAndPetType(petname, pettype);
                 pettype = petTypeField.getText();
                 
                 // o türe sahip tüm listeyi döndürecek fonksiyon
