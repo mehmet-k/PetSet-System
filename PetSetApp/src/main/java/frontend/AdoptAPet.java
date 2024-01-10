@@ -18,10 +18,11 @@ public class AdoptAPet extends JFrame {
     private JTextField petTypeField;
     private JTextField petCityField;
 
-    private JTextField addressField;
-    private JTextField passwordField;
+    private JTextField petIdField;
+    private JTextField petNameField;
     private String pettype;
     private String petcity;
+    private Pet selectedPet; // Variable to store the selected pet
 
     private User userr;
 
@@ -106,19 +107,19 @@ public class AdoptAPet extends JFrame {
         
         gbc.gridx = 0;
         gbc.gridy=6+ gbc.gridy;
-        JLabel addressLabel = new JLabel("Pet Id:");
-        panel.add(addressLabel, gbc);
+        JLabel petIdLabel = new JLabel("Pet Id:");
+        panel.add(petIdLabel, gbc);
         gbc.gridx++;
-        addressField = new JTextField(15);
-        panel.add(addressField, gbc);
+        petIdField = new JTextField(15);
+        panel.add(petIdField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JLabel passwordLabel = new JLabel("Pet Name:");
-        panel.add(passwordLabel, gbc);
+        /*JLabel patNameLabel = new JLabel("Pet Name:");
+        panel.add(patNameLabel, gbc);
         gbc.gridx++;
-        passwordField = new JTextField(15);
-        panel.add(passwordField, gbc);
+        petNameField = new JTextField(15);
+        panel.add(petNameField, gbc);*/
 
       
         
@@ -131,8 +132,10 @@ public class AdoptAPet extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Perform sign-up logic here
                 // For simplicity, we are just displaying the entered information
-
-               
+            	int petid = Integer.parseInt(petIdField.getText());
+            	Pet pett = petRepository.getPetByID(petid);
+                
+            	AdServices.applyToPetAdoption(userr, pett);
             }
         });
 
@@ -168,8 +171,10 @@ public class AdoptAPet extends JFrame {
 
         // Add pet names to the list model
         for (Pet pet : pets) {
-            listModel.addElement(pet.getPetName());
+            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
         }
     }
+    
+    
 }
 
