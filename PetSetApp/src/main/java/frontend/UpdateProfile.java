@@ -100,6 +100,7 @@ public class UpdateProfile extends JFrame {
     		    		 
                 		 
                 		 // updateUser userRepository.insertUser(newUser);
+                		 
                 		 status.setText("Updated succesfully!");
                 			
                 	}

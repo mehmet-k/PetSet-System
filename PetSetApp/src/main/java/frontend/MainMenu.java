@@ -3,7 +3,7 @@ package frontend;
 import javax.swing.*;
 
 import backend.models.User;
-
+import backend.util.db.repositories.userRepository;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +33,8 @@ public class MainMenu extends JFrame {
         JButton button4 = new JButton("Manage applications to your ad(s)");
         JButton button5 = new JButton("Buy pet Item");
         JButton button6 = new JButton("Update profile");
+        JButton button7 = new JButton("Hard Delete ");
+
 
         JLabel welcomeLabel = new JLabel("Welcome " + loggedInUser.getFirstName() + " " + loggedInUser.getSurname());
         JLabel welcomeLabel1 = new JLabel();
@@ -46,6 +48,10 @@ public class MainMenu extends JFrame {
         panel.add(button4);
         panel.add(button5);
         panel.add(button6);
+        /*if(userRepository.isAdmin(loggedInUser)) {
+            panel.add(button6);
+        }*/
+
 
 
         add(panel);
@@ -101,6 +107,8 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Replace with your logic for buying a pet item
+            	  dispose();
+                  new ItemBuy(loggedInUser);
                 System.out.println("Buy pet Item button clicked");
             }
         });

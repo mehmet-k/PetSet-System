@@ -53,8 +53,41 @@ public class ManageApplications extends JFrame {
      
         
         // Buraya ownerid'nin bu adam oldugu tüm petler basvurular dönecek 
+        listModel = new DefaultListModel<>();
+        petList = new JList<>(listModel);
+        listModel.clear();
+
+        for (Pet pet : userOwnershipRepository.getUserPets(userr)) {
+            if (pet != null) {
+                try {
+                    List<User> applicants = AdServices.getAllApplicantsByPet(pet);
+                    if (applicants != null) {
+                        for (User uuser : applicants) {
+                            if (uuser != null) {
+                                listModel.addElement("Pet ID:" + pet.getId() + "   " + " Pet Name:" + pet.getPetName()
+                                        + "Applicant ID:"  + "   " + " Applicant Name:"
+                                        + uuser.getFirstName() + " " + uuser.getSurname() + "   "
+                                        + " Applicant Address:" + uuser.getAddress());
+                            } else {
+                                // Handle the case where uuser is null
+                                System.out.println("User is null for pet: " + pet.getId());
+                            }
+                        }
+                    } else {
+                        // Handle the case where applicants is null
+                        System.out.println("Applicants are null for pet: " + pet.getId());
+                    }
+                } catch (Exception e) {
+                    // Handle the exception
+                    System.out.println("An error occurred for pet: " + pet.getId());
+                    e.printStackTrace();
+                }
         
-        
+            } else {
+                // Handle the case where pet is null
+                System.out.println("Pet is null");
+            }
+        }
         
         gbc.gridx = 0;
         gbc.gridy++;
