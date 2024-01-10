@@ -83,11 +83,11 @@ public class petRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT p"
+			String nativeSQL = "SELECT p "
 					+ "FROM Pet p, userHasThisPet uhtp, User u"
 					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND u.address LIKE '%:city%'"
 					+ "INTERSECT"
-					+ "SELECT p"
+					+ "SELECT p "
 					+ "FROM Pet p, userHasThisPet uhtp, User u"
 					+ "WHERE p.id = uhtp.petid AND u.id = uhtp.userid AND p.pettype = :pet_type";
 			
