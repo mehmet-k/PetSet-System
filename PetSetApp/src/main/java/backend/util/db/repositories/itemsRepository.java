@@ -78,9 +78,11 @@ public class itemsRepository {
 			Transaction tx = session.beginTransaction();
 	        
 			String nativeSQL = "SELECT i.price , count(*) itemCount FROM Items i "
-					+ "GROUP BY i.price HAVING i.price > 0 AND i.price < 100";
+					+ "GROUP BY i.price HAVING i.price > :lowerbound AND i.price < :upperbound";
 			
 	        List<Integer> priceCount =(List<Integer>)session.createQuery(nativeSQL,Integer.class)
+	        				.setParameter("lowerbound", lowerBound)
+	        				.setParameter("upperbound", upperBound)
 			                .getResultList();
 
 	        tx.commit();
@@ -88,5 +90,20 @@ public class itemsRepository {
 		}
 	}
 	
+	public static List<Items> getItemsByPriceItems(int lowerBound,int upperBound){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT i FROM Items i WHERE i.price > :lowerbound AND i.price < :upperbound";
+			
+	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
+	        				.setParameter("lowerbound", lowerBound)
+	        				.setParameter("upperbound", upperBound)
+			                .getResultList();
+
+	        tx.commit();
+	        return items;
+		}
+	}
 	
 }
