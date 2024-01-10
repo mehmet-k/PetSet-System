@@ -15,6 +15,7 @@ public class AdServices {
 	public static Pet createPetAd(String petTypeName,String petName) {
 		PetType petType = petTypeRepository.returnPetTypeByPetTypeName(petTypeName);
 		Pet pet = new Pet(petType.getId(),petType.getPetType(),petName);
+		petRepository.insertPet(pet);
 		return pet;
 	}
 	

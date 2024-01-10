@@ -2,11 +2,15 @@
 
 import java.util.List;
 import backend.models.Pet;
+import backend.models.PetType;
 import backend.models.User;
 import backend.services.AdServices;
 import backend.util.db.repositories.adoptionRequestsRepository;
+import backend.util.db.repositories.petRepository;
+import backend.util.db.repositories.petTypeRepository;
 import backend.util.db.repositories.userOwnershipRepository;
 import backend.util.db.repositories.userRepository;
+import frontend.PublishAd;
 
 public class Main {
 	public static void main(String[] args) {
@@ -22,19 +26,23 @@ public class Main {
 		
 		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
 		
-		User user = userRepository.getUserFromUserName("Ronnie_JD");
+		User owner =  userRepository.getUserByUserID(22);
 		
+		Pet pet;
+		pet= AdServices.createPetAd("Cat", "test2");
+		AdServices.publishAd(owner, pet);
 		
-		List<Pet> pets = userOwnershipRepository.getUserPets(user);
+		/*
+		User owner =  userRepository.getUserByUserID(22);
+		List<Pet> pets = petRepository.getAllPets();
+		userOwnershipRepository.addPetToUser(owner, pets.get(0));
 		
-		for(Pet pet : pets) {
-			System.out.println(pet.getPetName());
+		User applicatUser;
+		for(int i = 23 ; i<=27;i++) {
+			applicatUser = userRepository.getUserByUserID(i);
+			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pets.get(0));
 		}
-		
-		User applicantUser;
-		applicantUser = userRepository.getUserByUserID(24);
-		AdServices.confirmPetAdoption(applicantUser, pets.get(1));
-		
+		*/
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 
