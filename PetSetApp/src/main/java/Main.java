@@ -2,8 +2,15 @@
 
 import java.util.List;
 import backend.models.Pet;
+import backend.models.PetType;
 import backend.models.User;
+import backend.services.AdServices;
+import backend.util.db.repositories.adoptionRequestsRepository;
+import backend.util.db.repositories.petRepository;
+import backend.util.db.repositories.petTypeRepository;
+import backend.util.db.repositories.userOwnershipRepository;
 import backend.util.db.repositories.userRepository;
+import frontend.PublishAd;
 
 public class Main {
 	public static void main(String[] args) {
@@ -18,6 +25,24 @@ public class Main {
 			System.out.println("yes Ronnie_JD");
 		
 		if(userRepository.areCredientialsCorrect("Ronnie_JD", "password")) System.out.println("yes");
+		
+		User owner =  userRepository.getUserByUserID(22);
+		
+		Pet pet;
+		pet= AdServices.createPetAd("Cat", "test2");
+		AdServices.publishAd(owner, pet);
+		
+		/*
+		User owner =  userRepository.getUserByUserID(22);
+		List<Pet> pets = petRepository.getAllPets();
+		userOwnershipRepository.addPetToUser(owner, pets.get(0));
+		
+		User applicatUser;
+		for(int i = 23 ; i<=27;i++) {
+			applicatUser = userRepository.getUserByUserID(i);
+			adoptionRequestsRepository.addUserToAdoptionRequest(applicatUser, pets.get(0));
+		}
+		*/
 		
 		//petOwnershipRepository.insertIntoUserOwnershipTable(user, pet);
 

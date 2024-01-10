@@ -23,7 +23,7 @@ public class userHasThisPet {
 	private int userID;
 	
 	@Column(name = "status")
-	private int status;
+	private int status=1;
 	
 
 	public userHasThisPet() {

@@ -18,7 +18,8 @@ public class userPurchaseRepository {
 	        String nativeSQL = "SELECT insert_into_user_purchases(:userID,:itemID)";
 	        session.createQuery(nativeSQL)
 	                .setParameter("userID", user.getId())
-	                .setParameter("itemID", item.getId());
+	                .setParameter("itemID", item.getId())
+	                .uniqueResult();
 
 	        tx.commit();
 	        session.close();

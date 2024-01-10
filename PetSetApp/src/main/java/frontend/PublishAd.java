@@ -19,7 +19,6 @@ public class PublishAd extends JFrame {
     private JTextField passwordField;
     private String petname;
     private String pettype;
-    private PetType petypee;
     private User userr;
     private Pet pet;
 
