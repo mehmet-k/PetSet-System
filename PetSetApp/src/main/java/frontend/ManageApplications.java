@@ -29,13 +29,13 @@ public class ManageApplications extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 600);
         setLocationRelativeTo(null);
-
-        createSignUpPanel();
         userr = user;
+
+        createSignUpPanel(userr);
         setVisible(true);
     }
 
-    private void createSignUpPanel() {
+    private void createSignUpPanel(User userr) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 

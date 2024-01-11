@@ -31,13 +31,12 @@ public class SeeYourApplications extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 600);
         setLocationRelativeTo(null);
-
-        createSignUpPanel();
         userr = user;
+        createSignUpPanel(userr);
         setVisible(true);
     }
 
-    private void createSignUpPanel() {
+    private void createSignUpPanel(User userr) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
@@ -55,20 +54,28 @@ public class SeeYourApplications extends JFrame {
      
         
         // Buraya applicant id'nin  bu adam oldugu tüm petler basvurular dönecek 
+        listModel = new DefaultListModel<>();
+        petList = new JList<>(listModel);
+        
+        List<Pet> pets = AdServices.getAllApplicationsOfaUser(userr);
+        for (Pet pet : pets) {
+			System.out.println(pet.getPetName());
+		}
+        updatePetList(pets);
+        
         
         gbc.gridx = 0;
         gbc.gridy++;
         JScrollPane scrollPane = new JScrollPane(petList);
-        panel.add(scrollPane, gbc);
         
-        listModel = new DefaultListModel<>();
-        petList = new JList<>(listModel);
+        panel.add(scrollPane, gbc);
+
+        
+        //petTypeLabel.setText(userr.getFirstName());
         
    
-        List<Pet> pets = AdServices.getAllApplicationsOfaUser(userr);
-        updatePetList(pets);
-        
-        
+       
+
         
         
         
@@ -96,7 +103,7 @@ public class SeeYourApplications extends JFrame {
 
         // Add pet names to the list model
         for (Pet pet : pets) {
-            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
+            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName()+  "   " + "Location:" );
         }
     }
     
