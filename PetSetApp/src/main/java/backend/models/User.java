@@ -96,6 +96,17 @@ public class User {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	
 	
 	
