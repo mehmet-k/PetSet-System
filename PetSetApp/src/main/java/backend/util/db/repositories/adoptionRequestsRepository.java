@@ -46,7 +46,7 @@ public class adoptionRequestsRepository {
 			Transaction tx = session.beginTransaction();
 	        
 			String nativeSQL = "SELECT u FROM User u, Pet p, adoptionRequest ar "
-					+"WHERE ar.petID = :petID AND u.id = ar.applicantID";
+					+"WHERE ar.petID = :petID AND u.id = ar.applicantID AND ar.status = 1";
 			
 	        List<User> users =(List<User>)session.createQuery(nativeSQL,User.class)
 			                .setParameter("petID", pet.getId())

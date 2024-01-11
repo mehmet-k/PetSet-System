@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 
 import backend.models.Pet;
 import backend.models.PetType;
+import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
 import jakarta.persistence.NoResultException;
 
@@ -131,6 +132,7 @@ public class petRepository {
 			return pet;
 		}
 	}
+	
 	
 	
 
