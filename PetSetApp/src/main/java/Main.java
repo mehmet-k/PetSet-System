@@ -9,6 +9,7 @@ import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.services.AdServices;
+import backend.services.HardDeleteInactiveRows;
 import backend.util.db.repositories.adoptionRequestsRepository;
 import backend.util.db.repositories.petRepository;
 import backend.util.db.repositories.petTypeRepository;
@@ -25,14 +26,7 @@ public class Main {
 		if(userRepository.isUserExists("Ronnie_JD"))
 			System.out.println("yes Ronnie_JD");
 		
-		AdServices.getPetListByCityAndPetType("Ankara", "Cat");
-
-		
-		User user = userRepository.getUserByUserID(25);
-		System.out.println(user.getAddress());
-		user.setAddress("İstanbul");
-		userRepository.updateUserInDB(user);
-		System.out.println(user.getAddress());
+		//HardDeleteInactiveRows.hardDeleteInactiveRowsFromDB();
 		
 		
 		

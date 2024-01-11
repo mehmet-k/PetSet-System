@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
+import backend.models.ItemType;
 import backend.models.Items;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
@@ -90,11 +91,13 @@ public class itemsRepository {
 		}
 	}
 	
-	public static List<Items> getItemsByPriceItems(int lowerBound,int upperBound){
+	public static List<Items> getItemsByItemsPrice(int lowerBound,int upperBound){
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT i FROM Items i WHERE i.price > :lowerbound AND i.price < :upperbound";
+			String nativeSQL = "SELECT i FROM Items i "
+					+ "WHERE i.price > :lowerbound AND i.price < :upperbound "
+					+ "AND i.status = 1";
 			
 	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
 	        				.setParameter("lowerbound", lowerBound)
@@ -105,5 +108,45 @@ public class itemsRepository {
 	        return items;
 		}
 	}
+	
+	public static List<Items> getItemsByItemType(ItemType itemType){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT i FROM Items i WHERE i.itemType =:itemtype AND i.status = 1";
+			
+	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
+	        				.setParameter("itemtype", itemType.getItemType())
+			                .getResultList();
+
+	        tx.commit();
+	        return items;
+		}
+	}
+	
+	public static List<Items> getItemsByPriceAndItemType(ItemType itemType, Integer lowerBound, 
+			Integer upperBound){
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT i FROM Items i "
+					+ "WHERE i.price > :lowerbound AND i.price < :upperbound "
+					+ "AND i.status = 1 "
+					+ "INTERSECT "
+					+ "SELECT i FROM Items i "
+					+ "WHERE i.itemTypeID = :itemtypeID AND i.status = 1";
+			
+	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
+	        				.setParameter("lowerbound", lowerBound)
+	        				.setParameter("upperbound", upperBound)
+	        				.setParameter("itemtypeID", itemType.getId())
+			                .getResultList();
+
+	        tx.commit();
+	        return items;
+		}
+	}
+	
+	
 	
 }

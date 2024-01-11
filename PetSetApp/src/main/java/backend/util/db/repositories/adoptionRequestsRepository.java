@@ -91,7 +91,7 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "DELETE FROM adoptionRequests WHERE status = 0";
+			String nativeSQL = "DELETE FROM adoption_requests WHERE status = 0";
 			
 	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
