@@ -78,11 +78,12 @@ public class itemTypeRepository {
 		}
 	}
 	
+	
 	public static void hardDeleteInactiveItemTypes() {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "DELETE FROM ItemType WHERE status = 0";
+			String nativeSQL = "DELETE FROM Item_Types WHERE status = 0";
 			
 	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        

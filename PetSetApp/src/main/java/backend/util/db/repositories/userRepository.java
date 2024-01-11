@@ -103,7 +103,7 @@ public class userRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "DELETE FROM User WHERE status = 0";
+			String nativeSQL = "DELETE FROM Users WHERE status = 0";
 			
 	        session.createNativeQuery(nativeSQL).executeUpdate();
 	        
