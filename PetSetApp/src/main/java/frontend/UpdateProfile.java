@@ -87,20 +87,28 @@ public class UpdateProfile extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // Perform sign-up logic here
                     // For simplicity, we are just displaying the entered information
-                	 User newUser = new User(
+                	/* User newUser = new User(
                               userr.getUserName(),
                               firstNameField.getText(),
                               lastNameField.getText(),
                               addressField.getText(),
-                              passwordField.getText());
+                              passwordField.getText());*/
+            	
+            		
+            		User user = userr;
+            		
                 	 if (  	    !firstNameField.getText().isEmpty() &&
                 			    !lastNameField.getText().isEmpty() &&
                 			    !addressField.getText().isEmpty() &&
                 			    !passwordField.getText().isEmpty()) {
-    		    		 
+                		 
+                		 user.setAddress(addressField.getText());
+                		 //user.setPassword(passwordField.getText());
+                		 user.setFirstName(firstNameField.getText());
+                		 user.setSurname(lastNameField.getText());
                 		 
                 		 // updateUser userRepository.insertUser(newUser);
-                		 
+                		 userRepository.updateUserInDB(user);
                 		 status.setText("Updated succesfully!");
                 			
                 	}

@@ -27,7 +27,7 @@ public class ManageApplications extends JFrame {
     public ManageApplications(User user) {
         setTitle("Manage applications to your pet(s)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(950, 600);
         setLocationRelativeTo(null);
         userr = user;
 
@@ -150,8 +150,8 @@ public class ManageApplications extends JFrame {
                 status.setText("Adoption approved");
                 
                 
-            	dispose();
-                new ManageApplications(userr);
+            	/*dispose();
+                new ManageApplications(userr);*/
                 // o türe sahip tüm listeyi döndürecek fonksiyon
                                       
                    
