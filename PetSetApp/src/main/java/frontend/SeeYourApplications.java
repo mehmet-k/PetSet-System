@@ -29,7 +29,7 @@ public class SeeYourApplications extends JFrame {
     public SeeYourApplications(User user) {
         setTitle("See your applications");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 600);
+        setSize(800, 800);
         setLocationRelativeTo(null);
         userr = user;
         createSignUpPanel(userr);
