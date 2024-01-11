@@ -37,4 +37,10 @@ public class ItemPurchaseServices {
 		return itemsRepository.getItemsByItemType(itemType);
 	}
 	
+	public static void confirmUserPurchases(User user, List<Items> items) {
+		for(Items i : items) {
+			userBuysItem(user, i);
+		}
+	}
+	
 }
