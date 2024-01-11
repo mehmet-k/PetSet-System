@@ -29,9 +29,9 @@ public class MainMenu extends JFrame {
         panel.setLayout(new GridLayout(4, 2, 10, 10));
 
         JButton button1 = new JButton("Adopt a Pet");
-        JButton button2 = new JButton("Your adoption application(s)");
+        JButton button2 = new JButton("Your  application(s)");
         JButton button3 = new JButton("Post an adoption ad");
-        JButton button4 = new JButton("Manage applications to your ad(s)");
+        JButton button4 = new JButton("Your acitve ad(s)");
         JButton button5 = new JButton("Buy pet Item");
         JButton button6 = new JButton("Update profile");
         JButton button7 = new JButton("Hard Delete ");
@@ -40,6 +40,7 @@ public class MainMenu extends JFrame {
         JLabel welcomeLabel = new JLabel("Welcome " + loggedInUser.getFirstName() + " " + loggedInUser.getSurname());
         JLabel welcomeLabel1 = new JLabel();
         JLabel welcomeLabel2 = new JLabel();
+        JLabel welcomeLabel3 = new JLabel();
 
 
         panel.add(welcomeLabel);
@@ -56,6 +57,7 @@ public class MainMenu extends JFrame {
         panel.add(button5);
         panel.add(button6);
         if(userRepository.isAdmin(loggedInUser)) {
+            panel.add(welcomeLabel3);
             panel.add(button7);
         }
 
