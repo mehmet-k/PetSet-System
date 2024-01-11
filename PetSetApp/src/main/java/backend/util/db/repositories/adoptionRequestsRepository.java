@@ -46,7 +46,7 @@ public class adoptionRequestsRepository {
 			Transaction tx = session.beginTransaction();
 	        
 			String nativeSQL = "SELECT u FROM User u, Pet p, adoptionRequest ar "
-					+"WHERE p.id = ar.petID AND u.id = ar.applicantID";
+					+"WHERE ar.petID = :petID AND u.id = ar.applicantID";
 			
 	        List<User> users =(List<User>)session.createQuery(nativeSQL,User.class)
 			                .setParameter("petID", pet.getId())
@@ -60,7 +60,7 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT p FROM Pet p, adoptionRequest ar WHERE p.id = ar.petID AND ar.userID =: userid";
+			String nativeSQL = "SELECT p FROM Pet p, adoptionRequest ar WHERE p.id = ar.petID AND ar.applicantID =: userid";
 			
 	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
 	        				.setParameter("userid", user.getId())

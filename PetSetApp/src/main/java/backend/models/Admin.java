@@ -16,6 +16,9 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private int id;
 	
+	@Column(name="status")
+	private int status;
+	
 	public Admin() {
 		// TODO Auto-generated constructor stub
 	}
