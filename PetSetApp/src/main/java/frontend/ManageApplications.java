@@ -15,9 +15,9 @@ public class ManageApplications extends JFrame {
 	 private JList<String> petList;
 	    private DefaultListModel<String> listModel;
     private JTextField petNameField;
-    private JTextField petTypeField;
+    private JTextField petIdField;
     private JTextField lastNameField;
-    private JTextField addressField;
+    private JTextField applicantIdField;
     private JTextField passwordField;
     private String petname;
     private String pettype;
@@ -27,7 +27,7 @@ public class ManageApplications extends JFrame {
     public ManageApplications(User user) {
         setTitle("Manage applications to your pet(s)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 600);
+        setSize(800, 800);
         setLocationRelativeTo(null);
         userr = user;
 
@@ -58,7 +58,6 @@ public class ManageApplications extends JFrame {
         listModel.clear();
         
 
-        updatePetList(pets);
       
 /*
 
@@ -95,6 +94,9 @@ public class ManageApplications extends JFrame {
         }
         */
         
+    	List<Pet> pets = userOwnershipRepository.getUserPets(userr);
+    	updatePetList(pets);
+        
         gbc.gridx = 0;
         gbc.gridy++;
         JScrollPane scrollPane = new JScrollPane(petList);
@@ -104,11 +106,23 @@ public class ManageApplications extends JFrame {
         
         gbc.gridx = 0;
         gbc.gridy++;
-        JLabel petCityLabel = new JLabel("Application id:");
-        panel.add(petCityLabel, gbc);
+        JLabel petIdLabel = new JLabel("Pet id:");
+        panel.add(petIdLabel, gbc);
         gbc.gridx++;
-        petTypeField = new JTextField(15);
-        panel.add(petTypeField, gbc);
+        petIdField = new JTextField(15);
+        panel.add(petIdField, gbc);
+        
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel applicantIdLabel = new JLabel("Applicant id:");
+        panel.add(applicantIdLabel, gbc);
+        gbc.gridx++;
+        applicantIdField = new JTextField(15);
+        panel.add(applicantIdField, gbc);
+        
+        
+        
 
 
         gbc.gridx = 0;
@@ -127,12 +141,20 @@ public class ManageApplications extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Perform sign-up logic here
                 // For simplicity, we are just displaying the entered information
-
+            	User applicantUser = userRepository.getUserByUserID(Integer.parseInt(applicantIdField.getText()));
+            	Pet approvedPet = petRepository.getPetByID(Integer.parseInt(petIdField.getText()));
+            	
+            	AdServices.confirmPetAdoption(applicantUser, approvedPet );
+                updatePetList(pets);
                 
-            	   dispose();
-                   new ManageApplications(userr);
+                status.setText("Adoption approved");
+                
+                
+            	dispose();
+                new ManageApplications(userr);
                 // o türe sahip tüm listeyi döndürecek fonksiyon
-
+                                      
+                   
             }
         });
 
@@ -163,17 +185,16 @@ public class ManageApplications extends JFrame {
 
         // Add pet names to the list model
 
-   
-    
-        for (Pet pet : userOwnershipRepository.getUserPets(userr)) {
+  
+        for (Pet pet : pets) {
             if (pet != null) {
                 try {
                     List<User> applicants = AdServices.getAllApplicantsByPet(pet);
                     if (applicants != null) {
                         for (User uuser : applicants) {
                             if (uuser != null) {
-                                listModel.addElement("Pet ID:" + pet.getId() + "   " + " Pet Name:" + pet.getPetName()
-                                        + "Applicant ID:"  + "   " + " Applicant Name:"
+                                listModel.addElement("Pet ID: " + pet.getId() + "   " + " Pet Name:" + pet.getPetName()
+                                        + "Applicant ID: "+ uuser.getId()  + "   " + " Applicant Name:"
                                         + uuser.getFirstName() + " " + uuser.getSurname() + "   "
                                         + " Applicant Address:" + uuser.getAddress());
                             } else {

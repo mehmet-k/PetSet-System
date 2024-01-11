@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
+import backend.util.db.repositories.*;
 public class SeeYourApplications extends JFrame {
 
     private JList<String> petList;
@@ -29,7 +29,7 @@ public class SeeYourApplications extends JFrame {
     public SeeYourApplications(User user) {
         setTitle("See your applications");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(600, 600);
         setLocationRelativeTo(null);
         userr = user;
         createSignUpPanel(userr);
@@ -103,7 +103,8 @@ public class SeeYourApplications extends JFrame {
 
         // Add pet names to the list model
         for (Pet pet : pets) {
-            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName()+  "   " + "Location:" );
+            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName()+  "   " + "Location: "
+        +  userOwnershipRepository.getOwner(pet).getAddress()) ;
         }
     }
     
