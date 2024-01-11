@@ -49,5 +49,8 @@ public class AdServices {
 		return pets;
 	}
 	
+	public static User getOwnerByPet(Pet pet) {
+		return userOwnershipRepository.getOwner(pet);
+	}
 	
 }
