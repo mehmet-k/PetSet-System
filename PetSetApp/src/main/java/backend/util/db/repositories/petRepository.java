@@ -90,7 +90,8 @@ public class petRepository {
 					+ "INTERSECT "
 					+ "SELECT p "
 					+ "FROM Pet p, userHasThisPet uhtp, User u "
-					+ "WHERE p.id = uhtp.petID AND u.id = uhtp.userID AND p.petType = :pet_type ";
+					+ "WHERE p.id = uhtp.petID AND u.id = uhtp.userID AND p.petType = :pet_type "
+					+ "AND p.isAdopted = 0 ";
 			
 			 List<Pet> pets = (List<Pet>)session.createQuery(nativeSQL,Pet.class)
 								 	.setParameter("city", city)
