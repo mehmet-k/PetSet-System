@@ -25,4 +25,16 @@ public class ItemPurchaseServices {
 		itemsRepository.insertItem(item);
 	}
 	
+	public static List<Items> getItemsByPriceAndType(Integer lowerBound, Integer upperBound,ItemType itemType){
+		return itemsRepository.getItemsByPriceAndItemType(itemType, lowerBound, upperBound);
+	}
+	
+	public static List<Items> getItemsByPrice(Integer lowerBound,Integer upperBound){
+		return itemsRepository.getItemsByItemsPrice(lowerBound, upperBound);
+	}
+	
+	public static List<Items> getItemsByType(ItemType itemType){
+		return itemsRepository.getItemsByItemType(itemType);
+	}
+	
 }
