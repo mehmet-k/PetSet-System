@@ -1,6 +1,9 @@
 
 
 import java.util.List;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
@@ -25,7 +28,14 @@ public class Main {
 			System.out.println("yes Ronnie_JD");
 		
 		AdServices.getPetListByCityAndPetType("Ankara", "Cat");
+
 		
+		List<Pet> pets = AdServices.getAllApplicationsOfaUser(userRepository.getUserByUserID(24)); 
+		/*
+		for( Pet p : pets){
+			System.out.println(p.getPetName());
+		}
+		*/
 		/*
 		System.out.println(pet.getId());
 		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pet);
