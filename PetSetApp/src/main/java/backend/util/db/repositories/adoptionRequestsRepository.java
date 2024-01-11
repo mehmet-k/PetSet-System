@@ -60,7 +60,8 @@ public class adoptionRequestsRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT p FROM Pet p, adoptionRequest ar WHERE p.id = ar.petID AND ar.applicantID =: userid";
+			String nativeSQL = "SELECT p FROM Pet p, adoptionRequest ar WHERE p.id = ar.petID AND "
+					+ "ar.applicantID =: userid AND ar.status = 1";
 			
 	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
 	        				.setParameter("userid", user.getId())

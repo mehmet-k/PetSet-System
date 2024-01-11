@@ -127,5 +127,17 @@ public class userRepository {
 		}
 	}
 
+	public static void updateUserInDB(User user) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "UPDATE USER ";
+			
+	        session.createNativeQuery(nativeSQL).executeUpdate();
+	        
+	        tx.commit();
+	        session.close();
+		}
+	}
 		
 }
