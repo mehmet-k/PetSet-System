@@ -103,7 +103,7 @@ public class UpdateProfile extends JFrame {
                 			    !passwordField.getText().isEmpty()) {
                 		 
                 		 user.setAddress(addressField.getText());
-                		 //user.setPassword(passwordField.getText());
+                		 user.setPassword(passwordField.getText());
                 		 user.setFirstName(firstNameField.getText());
                 		 user.setSurname(lastNameField.getText());
                 		 

@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import backend.models.User;
 import backend.util.db.hibernate.HibernateUtility;
 import jakarta.persistence.NoResultException;
+import backend.models.*;
 
 public class userRepository {
 
@@ -57,7 +58,7 @@ public class userRepository {
 	public static boolean isAdmin(User user) {
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
 			String nativeSQL = "SELECT a FROM Admin a WHERE a.id = :ID AND a.status = 1";
-			User admin = (User)session.createQuery(nativeSQL,User.class)
+			Admin admin = (Admin)session.createQuery(nativeSQL,Admin.class)
 							.setParameter("ID", user.getId())
 							.getSingleResult();
 			return true;

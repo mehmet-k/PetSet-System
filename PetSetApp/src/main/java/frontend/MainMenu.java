@@ -3,6 +3,7 @@ package frontend;
 import javax.swing.*;
 
 import backend.models.User;
+import backend.services.HardDeleteInactiveRows;
 import backend.util.db.repositories.userRepository;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,9 +39,15 @@ public class MainMenu extends JFrame {
 
         JLabel welcomeLabel = new JLabel("Welcome " + loggedInUser.getFirstName() + " " + loggedInUser.getSurname());
         JLabel welcomeLabel1 = new JLabel();
+        JLabel welcomeLabel2 = new JLabel();
+
 
         panel.add(welcomeLabel);
         panel.add(welcomeLabel1);
+        if(userRepository.isAdmin(loggedInUser)) {
+            panel.add(welcomeLabel2);
+        }
+
 
         panel.add(button1);
         panel.add(button2);
@@ -48,9 +55,9 @@ public class MainMenu extends JFrame {
         panel.add(button4);
         panel.add(button5);
         panel.add(button6);
-        /*if(userRepository.isAdmin(loggedInUser)) {
-            panel.add(button6);
-        }*/
+        if(userRepository.isAdmin(loggedInUser)) {
+            panel.add(button7);
+        }
 
 
 
@@ -122,6 +129,18 @@ public class MainMenu extends JFrame {
                 new UpdateProfile(loggedInUser);
             }
         });
+        
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Replace with your logic for buying a pet item
+            	HardDeleteInactiveRows.hardDeleteInactiveRowsFromDB();
+            	
+                System.out.println("Database cleaned");
+                welcomeLabel1.setText("DB cleaned");
+            }
+        });
+        
     }
 
 }
