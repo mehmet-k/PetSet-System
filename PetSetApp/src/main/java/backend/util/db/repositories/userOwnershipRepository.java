@@ -101,4 +101,20 @@ public class userOwnershipRepository {
 		}
 	}
 	
+	public static User getOwner(Pet pet) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT u FROM userHasThisPet uhtp, User u "
+					+ "WHERE u.id = uhtp.userID AND uhtp.petID = :petid";
+			
+			User user = session.createQuery(nativeSQL,User.class)
+						.setParameter("petid", pet.getId())		
+						.getSingleResult();
+	        
+	        tx.commit();
+	        return user;
+		}
+	}
+	
 }
