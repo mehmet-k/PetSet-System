@@ -127,5 +127,13 @@ public class userRepository {
 		}
 	}
 
+	public static void updateUserInDB(User user) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+			session.update(user);
+	        tx.commit();
+	        session.close();
+		}
+	}
 		
 }

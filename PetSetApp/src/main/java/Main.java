@@ -31,11 +31,11 @@ public class Main {
 
 		
 		List<Pet> pets = AdServices.getAllApplicationsOfaUser(userRepository.getUserByUserID(24)); 
-		/*
+	
 		for( Pet p : pets){
 			System.out.println(p.getPetName());
 		}
-		*/
+	
 		/*
 		System.out.println(pet.getId());
 		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pet);
