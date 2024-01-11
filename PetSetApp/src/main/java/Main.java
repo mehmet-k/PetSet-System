@@ -1,5 +1,6 @@
 
 
+import java.io.ObjectInputStream.GetField;
 import java.util.List;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
@@ -17,10 +18,7 @@ import frontend.PublishAd;
 
 public class Main {
 	public static void main(String[] args) {
-		/*
-		Pet pet = new Pet(1,"Cat","Destroyer Of Worlds");
-		petRepository.insertPet(pet);
-		*/
+
 		if(userRepository.isUserExists("RJ_Dio"))
 			System.out.println("yes");
 
@@ -30,11 +28,14 @@ public class Main {
 		AdServices.getPetListByCityAndPetType("Ankara", "Cat");
 
 		
-		List<Pet> pets = AdServices.getAllApplicationsOfaUser(userRepository.getUserByUserID(24)); 
-	
-		for( Pet p : pets){
-			System.out.println(p.getPetName());
-		}
+		User user = userRepository.getUserByUserID(25);
+		System.out.println(user.getAddress());
+		user.setAddress("İstanbul");
+		userRepository.updateUserInDB(user);
+		System.out.println(user.getAddress());
+		
+		
+		
 	
 		/*
 		System.out.println(pet.getId());
