@@ -131,6 +131,18 @@ public class UpdateProfile extends JFrame {
             }
         });
         panel.add(backButton, gbc);
+        
+        
+        
+        JButton deleteButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new MainMenu(userr);
+            }
+        });
+        panel.add(backButton, gbc);
 
         add(panel);
     }
