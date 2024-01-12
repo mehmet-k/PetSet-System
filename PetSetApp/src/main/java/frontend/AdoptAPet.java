@@ -82,6 +82,7 @@ public class AdoptAPet extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Get pet list and update JList
                 pettype = petTypeField.getText();
+                pettype = pettype.toLowerCase();
                 petcity = petCityField.getText();
                 List<Pet> pets = AdServices.getPetListByCityAndPetType(petcity, pettype);
                 updatePetList(pets);
