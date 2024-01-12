@@ -145,6 +145,21 @@ public class itemsRepository {
 		}
 	}
 	
+	public static Items getItemByID(int id) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+	        
+			String nativeSQL = "SELECT i FROM Items i WHERE i.id = :itemid";
+
+	        Items item = session.createQuery(nativeSQL,Items.class)
+	        				.setParameter("itemid", id)
+	        				.getSingleResult();
+
+	        tx.commit();
+	        return item;
+		}
+	}
+	
 	
 	
 }
