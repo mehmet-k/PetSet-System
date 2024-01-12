@@ -8,6 +8,7 @@ import backend.util.db.repositories.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class UpdateProfile extends JFrame {
 
@@ -22,7 +23,7 @@ public class UpdateProfile extends JFrame {
     public UpdateProfile(User user) {
         setTitle("Update Profile");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 500);
         setLocationRelativeTo(null);
         userr = user;
         createSignUpPanel();
@@ -132,17 +133,28 @@ public class UpdateProfile extends JFrame {
         });
         panel.add(backButton, gbc);
         
+        gbc.gridx = 0;
+        gbc.gridy++;
         
-        
-        JButton deleteButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
+        JButton deleteButton = new JButton("!! DELETE ACCOUNT !!");
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	status.setText("You account is deleted. Logging out...");
+
+            	try {
+					TimeUnit.SECONDS.sleep(5);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	
+            	userRepository.removeUser(userr);
                 dispose();
                 new MainMenu(userr);
             }
         });
-        panel.add(backButton, gbc);
+        panel.add(deleteButton, gbc);
 
         add(panel);
     }
