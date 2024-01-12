@@ -81,10 +81,10 @@ public class petTypeRepository {
 	public static PetType returnPetTypeByPetTypeName(String petTypeName) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.petType =:pet_type";
+			String nativeSQL = "SELECT pt FROM PetType pt WHERE pt.petType =:pet_type AND pt.status = 1";
 			PetType petType = (PetType) session.createQuery(nativeSQL, PetType.class)
 									.setParameter("pet_type", petTypeName)
-									.uniqueResult();
+									.getSingleResult();
 			tx.commit();
 			session.close();
 			return petType;
