@@ -19,6 +19,11 @@ public class ItemBuy extends JFrame {
 
 	  private JList<String> AllItemList;
 	    private DefaultListModel<String> listModel;
+	    
+	    
+
+		private JList<String> BoughtItemList;
+		private DefaultListModel<String> boughtlistModel;
 	    private JTextField buyItemIDField;
 	    private JTextField petCityField;
 
@@ -39,7 +44,7 @@ public class ItemBuy extends JFrame {
 	    public ItemBuy(User user) {
 	        setTitle("Apply for adoption");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setSize(600, 600);
+	        setSize(700, 840);
 	        setLocationRelativeTo(null);
 
 	        createSignUpPanel();
@@ -152,6 +157,13 @@ public class ItemBuy extends JFrame {
 	        gbc.gridy++;
 	        JLabel status = new JLabel("");
 	        panel.add(status, gbc);
+	        
+	        
+	        boughtlistModel = new DefaultListModel<>();
+	        BoughtItemList = new JList<>(boughtlistModel);
+	        
+	        JScrollPane scrollPaneUser = new JScrollPane(BoughtItemList);
+	         panel.add(scrollPaneUser, gbc);
 
 	        
 	        
@@ -173,9 +185,11 @@ public class ItemBuy extends JFrame {
 	            	
 	            	ItemPurchaseServices.userBuysItem(userr, itemsRepository.getItemByID(buyItem));
 	            	
+	            	updateBoughtItemList();
+	            	
 	            	status.setText("Bought!");
 
-	            	AdServices.applyToPetAdoption(userr, pett);
+	            	//AdServices.applyToPetAdoption(userr, pett);
 	            }
 	        });
 
@@ -216,13 +230,14 @@ public class ItemBuy extends JFrame {
 	    }
 	    
 	    
-	    private void updateBoughtItemList(List<Items> items) {
+	    private void updateBoughtItemList() {
 	        // Clear the existing list
-	        listModel.clear();
+	    	List<Items> items = ItemPurchaseServices.getUserPurchases(userr);
+	    	boughtlistModel.clear();
 
 	        // Add pet names to the list model
 	        for (Items item : items) {
-	            listModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName()+ "   Price:" + item.getPrice());
+	            listModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName());
 	        }
 	    }
 	    
