@@ -169,10 +169,10 @@ public class ItemBuy extends JFrame {
 	            	
 	            	int buyItem = Integer.parseInt(buyItemIDField.getText());
 	            	
+	            	itemsRepository.getItemByID(buyItem);
 	            	
+	            	ItemPurchaseServices.userBuysItem(userr, itemsRepository.getItemByID(buyItem));
 	            	
-	            	int petid = Integer.parseInt(petIdField.getText());
-	            	Pet pett = petRepository.getPetByID(petid);
 	            	status.setText("Bought!");
 
 	            	AdServices.applyToPetAdoption(userr, pett);
@@ -214,6 +214,18 @@ public class ItemBuy extends JFrame {
 	            listModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName()+ "   Price:" + item.getPrice());
 	        }
 	    }
+	    
+	    
+	    private void updateBoughtItemList(List<Items> items) {
+	        // Clear the existing list
+	        listModel.clear();
+
+	        // Add pet names to the list model
+	        for (Items item : items) {
+	            listModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName()+ "   Price:" + item.getPrice());
+	        }
+	    }
+	    
 	    
     
 }
