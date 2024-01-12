@@ -52,7 +52,7 @@ public class userOwnershipRepository {
 			String nativeSQL = "SELECT p " +
 	                "FROM User u,userHasThisPet up, Pet p " +
 	                "WHERE u.id = up.userID AND u.id = :userID AND p.id = up.petID AND up.status = 1 "
-	                + "AND up.isAdopted = 0";
+	                + "AND p.isAdopted = 0";
 	        
 	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
 			                .setParameter("userID", user.getId())
@@ -70,7 +70,7 @@ public class userOwnershipRepository {
 			String nativeSQL = "SELECT p " +
 	                "FROM User u,userHasThisPet up, Pet p " +
 	                "WHERE u.id = up.userID AND u.id = :userID AND p.id = up.petID AND up.status = 1 "
-	                + "AND up.isAdopted = 1";
+	                + "AND p.isAdopted = 1";
 	        
 	        List<Pet> pets =(List<Pet>)session.createQuery(nativeSQL,Pet.class)
 			                .setParameter("userID", user.getId())
