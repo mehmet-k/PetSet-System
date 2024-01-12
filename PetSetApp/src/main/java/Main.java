@@ -1,11 +1,13 @@
 
 
 import java.io.ObjectInputStream.GetField;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import backend.models.ItemType;
+import backend.models.Items;
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
@@ -32,6 +34,13 @@ public class Main {
 		ItemType itemType = itemTypeRepository.getItemTypeByString("dog food");
 		System.out.println(itemType.getItemType());
 		
+		
+		
+		
+		List<Items> items = itemsRepository.getItemsByPriceAndItemType(itemType,0,200);
+		for (Items i : items) {
+			System.out.println(i.getItemName());
+		}
 		//HardDeleteInactiveRows.hardDeleteInactiveRowsFromDB();
 		
 		
