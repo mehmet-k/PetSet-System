@@ -5,12 +5,15 @@ import java.util.List;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import backend.models.ItemType;
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
 import backend.services.AdServices;
 import backend.services.HardDeleteInactiveRows;
 import backend.util.db.repositories.adoptionRequestsRepository;
+import backend.util.db.repositories.itemTypeRepository;
+import backend.util.db.repositories.itemsRepository;
 import backend.util.db.repositories.petRepository;
 import backend.util.db.repositories.petTypeRepository;
 import backend.util.db.repositories.userOwnershipRepository;
@@ -25,6 +28,9 @@ public class Main {
 
 		if(userRepository.isUserExists("Ronnie_JD"))
 			System.out.println("yes Ronnie_JD");
+		
+		ItemType itemType = itemTypeRepository.getItemTypeByString("dog food");
+		System.out.println(itemType.getItemType());
 		
 		//HardDeleteInactiveRows.hardDeleteInactiveRowsFromDB();
 		

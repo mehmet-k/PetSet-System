@@ -37,6 +37,21 @@ public class itemTypeRepository {
 		}
 	}
 	
+	public static ItemType getItemTypeByString(String itemTypeString) {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+            
+			String nativeSQLString = "SELECT it FROM ItemType it WHERE it.itemType= :itemtype";
+			
+			ItemType itemType =  session.createQuery(nativeSQLString,ItemType.class)
+								.setParameter("itemtype", itemTypeString)
+								.getSingleResult();
+				
+            tx.commit();
+            return itemType;
+		}
+	}
+	
 	public void removeItemType(ItemType itemType) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
