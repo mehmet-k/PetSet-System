@@ -218,7 +218,7 @@ public class ManageApplications extends JFrame {
         
         // Add pet names to the list model
         for (Pet pet : petsUser) {
-            listModelUser.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
+            listModelUser.addElement("ID: "+pet.getId()+ "   " + "Name: "+pet.getPetName() + "   Type: " + pet.getPetType() );
             System.out.println("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
 
         }

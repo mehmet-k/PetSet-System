@@ -177,7 +177,7 @@ public class AdoptAPet extends JFrame {
 
         // Add pet names to the list model
         for (Pet pet : pets) {
-            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName());
+            listModel.addElement("ID:"+pet.getId()+ "   " + "Name:"+pet.getPetName()+ "   Type:" + pet.getPetType());
         }
     }
     
