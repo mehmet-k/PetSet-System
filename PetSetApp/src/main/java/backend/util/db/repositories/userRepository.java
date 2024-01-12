@@ -1,5 +1,6 @@
 package backend.util.db.repositories;
 
+import java.awt.desktop.UserSessionEvent;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -134,6 +135,16 @@ public class userRepository {
 			session.update(user);
 	        tx.commit();
 	        session.close();
+		}
+	}
+	
+	public static List<User> getAllAdmins() {
+		try(Session session = HibernateUtility.getSessionFactory().openSession()){
+			Transaction tx = session.beginTransaction();
+			String nativeSQLString = "SELECT * FROM SELECT_ALL_ADMINS";
+			List<User> admins = session.createNativeQuery(nativeSQLString, User.class).getResultList();
+	        tx.commit();
+	        return admins;
 		}
 	}
 		

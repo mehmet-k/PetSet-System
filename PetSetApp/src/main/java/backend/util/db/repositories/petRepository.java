@@ -87,11 +87,12 @@ public class petRepository {
 			String nativeSQL = "SELECT p "
 					+ "FROM Pet p, userHasThisPet uhtp, User u "
 					+ "WHERE p.id = uhtp.petID AND u.id = uhtp.userID AND u.address LIKE :city "
+					+ "AND p.isAdopted = 0 AND p.status = 1 "
 					+ "INTERSECT "
 					+ "SELECT p "
 					+ "FROM Pet p, userHasThisPet uhtp, User u "
 					+ "WHERE p.id = uhtp.petID AND u.id = uhtp.userID AND p.petType = :pet_type "
-					+ "AND p.isAdopted = 0 ";
+					+ "AND p.isAdopted = 0 AND p.status = 1";
 			
 			 List<Pet> pets = (List<Pet>)session.createQuery(nativeSQL,Pet.class)
 								 	.setParameter("city", city)
