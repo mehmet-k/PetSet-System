@@ -16,7 +16,7 @@ public class SimpleLoginPage extends JFrame {
     public SimpleLoginPage() {
         setTitle("Login Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
+        setSize(400, 200);
         setLocationRelativeTo(null);
 
         createLoginPanel();

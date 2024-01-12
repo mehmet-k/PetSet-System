@@ -122,7 +122,11 @@ public class AdoptAPet extends JFrame {
         petNameField = new JTextField(15);
         panel.add(petNameField, gbc);*/
 
-      
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel status = new JLabel("");
+        panel.add(status, gbc);
+
         
         
         gbc.gridx = 0;
@@ -135,7 +139,8 @@ public class AdoptAPet extends JFrame {
                 // For simplicity, we are just displaying the entered information
             	int petid = Integer.parseInt(petIdField.getText());
             	Pet pett = petRepository.getPetByID(petid);
-                
+            	status.setText("Applied!");
+
             	AdServices.applyToPetAdoption(userr, pett);
             }
         });

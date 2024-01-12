@@ -35,6 +35,8 @@ public class MainMenu extends JFrame {
         JButton button5 = new JButton("Buy pet Item");
         JButton button6 = new JButton("Update profile");
         JButton button7 = new JButton("Hard Delete ");
+        JButton button8 = new JButton("Your Adopted Pets ");
+
 
 
         JLabel welcomeLabel = new JLabel("Welcome " + loggedInUser.getFirstName() + " " + loggedInUser.getSurname());
@@ -51,6 +53,7 @@ public class MainMenu extends JFrame {
 
 
         panel.add(button1);
+        panel.add(button8);
         panel.add(button2);
         panel.add(button3);
         panel.add(button4);
@@ -60,6 +63,7 @@ public class MainMenu extends JFrame {
             panel.add(welcomeLabel3);
             panel.add(button7);
         }
+
 
 
 
@@ -140,6 +144,16 @@ public class MainMenu extends JFrame {
             	
                 System.out.println("Database cleaned");
                 welcomeLabel1.setText("DB cleaned");
+            }
+        });
+        
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Replace with your logic for buying a pet item
+            	   System.out.println("See adoptions button clicked");
+                   dispose();
+                   new SeeYourAdoptions(loggedInUser);
             }
         });
         

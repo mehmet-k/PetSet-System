@@ -48,17 +48,11 @@ public class ManageApplications extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5); // Add some padding
 
-    
-        
         gbc.gridx = 0;
         gbc.gridy++;
         JLabel petTypeLabelActive = new JLabel("Your Active Ads:");
         panel.add(petTypeLabelActive, gbc);
         
-        
-    
-        
-     
         
         // Buraya ownerid'nin bu adam oldugu tüm petler basvurular dönecek 
         listModel = new DefaultListModel<>();
@@ -79,11 +73,7 @@ public class ManageApplications extends JFrame {
          JScrollPane scrollPaneUser = new JScrollPane(petListUser);
          panel.add(scrollPaneUser, gbc);
 
-/*
- * 
- * 
 
-        for */
          gbc.gridx = 0;
          gbc.gridy++;
          JLabel petTypeLabel = new JLabel("Applications to your pet(s):");
@@ -145,7 +135,7 @@ public class ManageApplications extends JFrame {
             	updatePetListUser();
 
                 
-                status.setText("Adoption approved");
+                status.setText("Adoption approved ( Trigger run )");
                 
                 
             	/*dispose();
@@ -192,7 +182,7 @@ public class ManageApplications extends JFrame {
                         for (User uuser : applicants) {
                             if (uuser != null) {
                                 listModel.addElement("Pet ID: " + pet.getId() + "   " + " Pet Name:" + pet.getPetName()
-                                        + "Applicant ID: "+ uuser.getId()  + "   " + " Applicant Name:"
+                                        + " -- Applicant ID: "+ uuser.getId()  + "   " + " Applicant Name:"
                                         + uuser.getFirstName() + " " + uuser.getSurname() + "   "
                                         + " Applicant Address:" + uuser.getAddress());
                             } else {
