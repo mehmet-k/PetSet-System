@@ -131,15 +131,13 @@ public class itemsRepository {
 	        
 			String nativeSQL = "SELECT i FROM Items i "
 					+ "WHERE i.price > :lowerbound AND i.price < :upperbound "
-					+ "AND i.status = 1 "
-					+ "INTERSECT "
-					+ "SELECT i FROM Items i "
-					+ "WHERE i.itemTypeID = :itemtypeID AND i.status = 1";
+					+ "AND i.itemTypeID = :itemtypeid";
+
 			
 	        List<Items> items =(List<Items>)session.createQuery(nativeSQL,Items.class)
 	        				.setParameter("lowerbound", lowerBound)
 	        				.setParameter("upperbound", upperBound)
-	        				.setParameter("itemtypeID", itemType.getId())
+	        				.setParameter("itemtypeid", itemType.getId())
 			                .getResultList();
 
 	        tx.commit();

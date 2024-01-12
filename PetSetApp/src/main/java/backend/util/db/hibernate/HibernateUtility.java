@@ -2,11 +2,11 @@ package backend.util.db.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.hibernate.cfg.Configuration;
 
 import backend.models.Admin;
 import backend.models.ItemType;
+import backend.models.Items;
 import backend.models.Pet;
 import backend.models.PetType;
 import backend.models.User;
@@ -23,7 +23,7 @@ public class HibernateUtility {
             Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
             configuration.addAnnotatedClass(User.class)
             .addAnnotatedClass(Pet.class)
-            .addAnnotatedClass(Item.class)
+            .addAnnotatedClass(Items.class)
             .addAnnotatedClass(ItemType.class)
             .addAnnotatedClass(PetType.class)
             .addAnnotatedClass(userHasThisPet.class)

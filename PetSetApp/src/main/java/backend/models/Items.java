@@ -18,8 +18,8 @@ public class Items {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "itemtpyeid")
-	private int itemTypeId;
+	@Column(name = "itemtypeid")
+	private int itemTypeID;
 	
 	@Column(name = "itemtype")
 	private String itemType;
@@ -39,7 +39,7 @@ public class Items {
 	
 	public Items(int itemTypeId, String itemType, String itemName,int price) {
 		super();
-		this.itemTypeId = itemTypeId;
+		this.itemTypeID = itemTypeId;
 		this.itemType = itemType;
 		this.itemName = itemName;
 		this.price = price;
@@ -63,11 +63,11 @@ public class Items {
 	}
 
 	public int getItemTypeId() {
-		return itemTypeId;
+		return itemTypeID;
 	}
 
 	public void setItemTypeId(int itemTypeId) {
-		this.itemTypeId = itemTypeId;
+		this.itemTypeID = itemTypeId;
 	}
 
 	public String getItemType() {
@@ -93,6 +93,7 @@ public class Items {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
 	
 	
 	
