@@ -15,11 +15,10 @@ public class userPurchaseRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-	        String nativeSQL = "SELECT insert_into_user_purchases(:userID,:itemID,:price)";
+	        String nativeSQL = "SELECT insert_into_user_purchases(:userID,:itemID)";
 	        session.createQuery(nativeSQL)
 	                .setParameter("userID", user.getId())
 	                .setParameter("itemID", item.getId())
-	                .setParameter("price", item.getPrice())
 	                .uniqueResult();
 
 	        tx.commit();
