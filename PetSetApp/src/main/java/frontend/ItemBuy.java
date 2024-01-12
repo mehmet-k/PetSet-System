@@ -164,7 +164,13 @@ public class ItemBuy extends JFrame {
 	                // Perform sign-up logic here
 	                // For simplicity, we are just displaying the entered information
 	            	
+	            	
+	            	
+	            	
 	            	int buyItem = Integer.parseInt(buyItemIDField.getText());
+	            	
+	            	
+	            	
 	            	int petid = Integer.parseInt(petIdField.getText());
 	            	Pet pett = petRepository.getPetByID(petid);
 	            	status.setText("Bought!");
