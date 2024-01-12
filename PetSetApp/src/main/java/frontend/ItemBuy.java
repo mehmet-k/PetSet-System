@@ -106,11 +106,11 @@ public class ItemBuy extends JFrame {
 	                itemtype = ItemTypeField.getText();
 	                itemtype = itemtype.toLowerCase();
 	                
-	                //itemsRepository.
+	               
 	                
 	                minPrice =  Integer.parseInt(MinPriceField.getText());
 	                maxPrice =  Integer.parseInt(MaxPriceField.getText());
-	                List<Items> items = ItemPurchaseServices.getItemsByPriceAndType(minPrice, maxPrice, null);
+	                List<Items> items = ItemPurchaseServices.getItemsByPriceAndType(minPrice, maxPrice,  itemTypeRepository.getItemTypeByString(itemtype));
 	                updateAllItemList(items);
 	            }
 	        });
@@ -138,7 +138,7 @@ public class ItemBuy extends JFrame {
 	        panel.add(ItemIdLabel, gbc);
 	        gbc.gridy++;
 	        buyItemIDField = new JTextField(15);
-	        panel.add(petIdField, gbc);
+	        panel.add(buyItemIDField, gbc);
 
 	        gbc.gridx = 0;
 	        gbc.gridy++;
@@ -163,6 +163,8 @@ public class ItemBuy extends JFrame {
 	            public void actionPerformed(ActionEvent e) {
 	                // Perform sign-up logic here
 	                // For simplicity, we are just displaying the entered information
+	            	
+	            	int buyItem = Integer.parseInt(buyItemIDField.getText());
 	            	int petid = Integer.parseInt(petIdField.getText());
 	            	Pet pett = petRepository.getPetByID(petid);
 	            	status.setText("Bought!");
