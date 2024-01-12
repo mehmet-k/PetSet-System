@@ -47,12 +47,12 @@ public class ItemBuy extends JFrame {
 	        setSize(700, 840);
 	        setLocationRelativeTo(null);
 
-	        createSignUpPanel();
 	        userr = user;
+	        createSignUpPanel(userr);
 	        setVisible(true);
 	    }
 
-	    private void createSignUpPanel() {
+	    private void createSignUpPanel(User userr) {
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new GridBagLayout());
 
@@ -159,11 +159,7 @@ public class ItemBuy extends JFrame {
 	        boughtlistModel = new DefaultListModel<>();
 	        BoughtItemList = new JList<>(boughtlistModel);
 	        
-	        gbc.gridx = 0;
-	        gbc.gridy++;
-	        JScrollPane scrollPaneUser = new JScrollPane(BoughtItemList);
-	         panel.add(scrollPaneUser, gbc);
-
+	       
 	        
 	        
 	        gbc.gridx = 0;
@@ -184,7 +180,7 @@ public class ItemBuy extends JFrame {
 	            	
 	            	ItemPurchaseServices.userBuysItem(userr, itemsRepository.getItemByID(buyItem));
 	            	
-	            	updateBoughtItemList();
+	            	updateBoughtItemList(userr);
 	            	
 	            	status.setText("Bought!");
 
@@ -196,6 +192,19 @@ public class ItemBuy extends JFrame {
 	        panel.add(applyToAdopt, gbc);
 	        
 	        
+
+	        gbc.gridx = 0;
+	        gbc.gridy++;
+	        JLabel status2 = new JLabel("Shop history");
+	        panel.add(status2, gbc);
+	        
+	        
+	        gbc.gridx = 0;
+	        gbc.gridy++;
+	        JScrollPane scrollPaneUser = new JScrollPane(BoughtItemList);
+	        panel.add(scrollPaneUser, gbc);
+	        updateBoughtItemList(userr);
+
 	        
 	        
 	        
@@ -229,7 +238,7 @@ public class ItemBuy extends JFrame {
 	    }
 	    
 	    
-	    private void updateBoughtItemList() {
+	    private void updateBoughtItemList(User Userr) {
 	        // Clear the existing list
 	    	List<Items> items = ItemPurchaseServices.getUserPurchases(userr);
 	    	boughtlistModel.clear();
