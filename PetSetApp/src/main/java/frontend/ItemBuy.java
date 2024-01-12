@@ -77,18 +77,15 @@ public class ItemBuy extends JFrame {
 	        
 	        JLabel MinPriceLabel = new JLabel("Min Price:");
 	        panel.add(MinPriceLabel, gbc);
-	        
-	        gbc.gridx++;
-	        JLabel MaxPriceLabel = new JLabel("Max Price:");
-	        panel.add(MaxPriceLabel, gbc);
-
-	        gbc.gridx = 0;
-
 	        gbc.gridy++;
 	        MinPriceField= new JTextField(15);
 	        panel.add(MinPriceField, gbc);
 	        
-	        gbc.gridx++;
+	        gbc.gridy++;
+	        JLabel MaxPriceLabel = new JLabel("Max Price:");
+	        panel.add(MaxPriceLabel, gbc);
+	   
+	        gbc.gridy++;
 	        MaxPriceField = new JTextField(15);
 	        panel.add(MaxPriceField, gbc);
 
@@ -162,6 +159,8 @@ public class ItemBuy extends JFrame {
 	        boughtlistModel = new DefaultListModel<>();
 	        BoughtItemList = new JList<>(boughtlistModel);
 	        
+	        gbc.gridx = 0;
+	        gbc.gridy++;
 	        JScrollPane scrollPaneUser = new JScrollPane(BoughtItemList);
 	         panel.add(scrollPaneUser, gbc);
 
@@ -237,7 +236,7 @@ public class ItemBuy extends JFrame {
 
 	        // Add pet names to the list model
 	        for (Items item : items) {
-	            listModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName());
+	        	boughtlistModel.addElement("ID:"+item.getId()+ "   " + " Item Type:"+item.getItemType()+ " Item Name:"+item.getItemName());
 	        }
 	    }
 	    

@@ -140,14 +140,9 @@ public class UpdateProfile extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	status.setText("You account is deleted. Logging out...");
+            	status.setText("You account is deleted.(Trigger Run)");
+            	JOptionPane.showMessageDialog(null, "Account is deleted. ( Trigger run) ");
 
-            	try {
-					TimeUnit.SECONDS.sleep(5);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
             	
             	userRepository.removeUser(userr);
                 dispose();

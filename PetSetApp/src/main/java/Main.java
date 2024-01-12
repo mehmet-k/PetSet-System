@@ -4,6 +4,7 @@ import java.io.ObjectInputStream.GetField;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import backend.models.ItemType;
@@ -21,10 +22,19 @@ import backend.util.db.repositories.petTypeRepository;
 import backend.util.db.repositories.userOwnershipRepository;
 import backend.util.db.repositories.userRepository;
 import frontend.PublishAd;
+import frontend.SimpleLoginPage;
 
 public class Main {
 	public static void main(String[] args) {
-
+		 SwingUtilities.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                new SimpleLoginPage();
+	            }
+	        });
+		
+		
+/*
 		if(userRepository.isUserExists("RJ_Dio"))
 			System.out.println("yes");
 
@@ -46,7 +56,6 @@ public class Main {
 		
 		
 	
-		/*
 		System.out.println(pet.getId());
 		AdServices.confirmPetAdoption(userRepository.getUserByUserID(25), pet);
 	*/
