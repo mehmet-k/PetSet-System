@@ -67,7 +67,7 @@ public class PublishAd extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JButton publish = new JButton("publish");
+        JButton publish = new JButton("Publish");
         publish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

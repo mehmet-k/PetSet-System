@@ -52,7 +52,7 @@ public class AdoptAPet extends JFrame {
         gbc.gridy++;
         JLabel petTypeLabel = new JLabel("Pet Type:");
         panel.add(petTypeLabel, gbc);
-        gbc.gridx++;
+        gbc.gridy++;
         petTypeField = new JTextField(15);
         panel.add(petTypeField, gbc);
         
@@ -61,7 +61,7 @@ public class AdoptAPet extends JFrame {
         gbc.gridy++;
         JLabel petCityLabel = new JLabel("Pet Location:");
         panel.add(petCityLabel, gbc);
-        gbc.gridx++;
+        gbc.gridy++;
         petCityField = new JTextField(15);
         panel.add(petCityField, gbc);
 
@@ -110,7 +110,7 @@ public class AdoptAPet extends JFrame {
         gbc.gridy=6+ gbc.gridy;
         JLabel petIdLabel = new JLabel("Pet Id:");
         panel.add(petIdLabel, gbc);
-        gbc.gridx++;
+        gbc.gridy++;
         petIdField = new JTextField(15);
         panel.add(petIdField, gbc);
 

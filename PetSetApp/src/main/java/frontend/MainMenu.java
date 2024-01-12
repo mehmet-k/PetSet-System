@@ -1,5 +1,6 @@
 package frontend;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import backend.models.User;
@@ -8,6 +9,8 @@ import backend.util.db.repositories.userRepository;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MainMenu extends JFrame {
 
@@ -44,12 +47,31 @@ public class MainMenu extends JFrame {
         JLabel welcomeLabel2 = new JLabel();
         JLabel welcomeLabel3 = new JLabel();
 
+        
+        
+        
 
         panel.add(welcomeLabel);
         panel.add(welcomeLabel1);
-        if(userRepository.isAdmin(loggedInUser)) {
+        
+        
+        BufferedImage wPic;
+     		try {
+     			wPic = ImageIO.read(this.getClass().getResource("petset.png"));
+     	        JLabel wIcon = new JLabel(new ImageIcon(wPic));
+     	        wIcon.setSize(80,80);
+
+     	   
+     	        panel.add(wIcon);
+     		} catch (IOException e1) {
+     			// TODO Auto-generated catch block
+     			e1.printStackTrace();
+     		}
+
+
+        /*if(userRepository.isAdmin(loggedInUser)) {
             panel.add(welcomeLabel2);
-        }
+        }*/
 
 
         panel.add(button1);
@@ -60,7 +82,6 @@ public class MainMenu extends JFrame {
         panel.add(button5);
         panel.add(button6);
         if(userRepository.isAdmin(loggedInUser)) {
-            panel.add(welcomeLabel3);
             panel.add(button7);
         }
 
@@ -157,6 +178,9 @@ public class MainMenu extends JFrame {
             }
         });
         
+        
+   
+
     }
 
 }
