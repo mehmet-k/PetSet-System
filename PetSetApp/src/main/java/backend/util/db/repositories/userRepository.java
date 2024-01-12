@@ -82,7 +82,7 @@ public class userRepository {
 	public static void removeUser(User user) {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
-			session.createNativeQuery("UPDATE User SET status = 0 WHERE id=:userID")
+			session.createNativeQuery("UPDATE Users SET status = 0 WHERE id=:userID")
 								.setParameter("userID", user.getId())
 								.executeUpdate();
 			tx.commit();
