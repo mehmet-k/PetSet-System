@@ -32,7 +32,7 @@ public class userPurchaseRepository {
 		try(Session session = HibernateUtility.getSessionFactory().openSession()){
 			Transaction tx = session.beginTransaction();
 	        
-			String nativeSQL = "SELECT p " +
+			String nativeSQL = "SELECT i " +
 	                "FROM User u,userPurchase up, Items i " +
 	                "WHERE u.id = up.userID AND u.id = :userID AND i.id = up.itemID AND up.status = 1";
 	        
