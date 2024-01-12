@@ -151,7 +151,7 @@ public class UpdateProfile extends JFrame {
             	
             	userRepository.removeUser(userr);
                 dispose();
-                new MainMenu(userr);
+                new SimpleLoginPage();
             }
         });
         panel.add(deleteButton, gbc);
