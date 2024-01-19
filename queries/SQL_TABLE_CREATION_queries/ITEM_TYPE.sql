@@ -1,6 +1,0 @@
-CREATE SEQUENCE IF NOT EXISTS item_type_id_seq;
-
-CREATE TABLE IF NOT EXISTS ITEM_TYPES(
-	id INT PRIMARY KEY DEFAULT NEXTVAL('item_type_id_seq'),
-	itemType varchar(255) NOT NULL
-);

@@ -1,9 +1,0 @@
-CREATE SEQUENCE IF NOT EXISTS pet_id_seq;
-
-CREATE TABLE IF NOT EXISTS PET(
-	id INT PRIMARY KEY DEFAULT NEXTVAL('pet_type_id_seq'),
-	petTypeID INT,
-	petType varchar(255) NOT NULL,
-	petName varchar(255) NOT NULL,
-	FOREIGN KEY (petTypeID) REFERENCES PET_TYPES
-);
